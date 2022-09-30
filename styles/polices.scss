@@ -1,0 +1,28 @@
+// CORPS DE TEXTE 
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url('../assets/fonts/HelveticaNeue-Thin.otf');
+  font-weight: $fw-thin;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url('../assets/fonts/HelveticaNeue-Regular.ttf');
+  font-weight: $fw-regular;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url('../assets/fonts/HelveticaNeue-Medium.otf');
+  font-weight: $fw-medium;
+}
+
+// TITRES
+
+@font-face {
+  font-family: 'Heebo';
+  src: url('../assets/fonts/Heebo-Medium.ttf');
+  font-weight: $fw-medium;
+}
+
