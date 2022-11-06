@@ -1,0 +1,65 @@
+@import '../../styles/variables.scss';
+
+.container {
+    gap:2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height:fit-content;
+    min-height: 50vh;
+    padding:1rem 2rem;
+
+
+    @include media-tablet {
+        min-height: 100vh;
+        padding: 4rem 2rem 2rem 2rem
+    }
+
+    &__cross {
+        display: none;
+        cursor: pointer;
+        position: absolute;
+        left: 50px;
+        top: 25px;
+
+        @include media-tablet {
+            display: block;
+        }
+    }
+
+    &__picture {
+        position:relative;
+
+        @include media-tablet {
+            min-width:650px;
+        }
+
+        h2 {
+            position: absolute;
+            max-width: 80%;
+        }
+
+        &__place {
+            right:0;
+            top: -1rem;
+
+            @include media-tablet {
+                top: -2rem;
+            }
+        }
+
+        &__date {
+            transform-origin: left;
+            transform: rotate(-90deg);
+            bottom: 0;
+            left: -1rem;
+
+            @include media-tablet {
+                left: -2rem;
+            }
+        }
+    }
+}
