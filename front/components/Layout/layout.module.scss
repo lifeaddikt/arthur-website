@@ -1,0 +1,17 @@
+@import '../../styles/variables.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+    @include media-tablet {
+        flex-direction: row;
+        height:100vh;
+
+        main {
+            width:0;
+            flex-grow: 1;
+            overflow-y: scroll;
+        }
+    }
+}

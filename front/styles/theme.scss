@@ -1,0 +1,97 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+    width:100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: $fw-thin;
+    text-transform: uppercase;
+  }
+
+  p {
+    line-height: 30px;
+  }
+
+  h1 {
+    font-family: 'Heebo', sans-serif;
+    font-weight: $fw-medium;
+    letter-spacing: 3px;
+    line-height: 22.5px;
+    margin-bottom: $gutter;
+    font-size: 20px;
+  }
+
+  h2 {
+    font-family: 'Helvetica Neue', 'sans-serif';
+    font-weight: $fw-medium;
+  }
+
+// LISTE DES COLLECTIONS DE LA HOME
+
+.collection-list {
+  display: flex;
+  flex-direction: column;
+  overflow-x: scroll;
+  position: relative;
+  height:100vh;
+  width:100%;
+
+  @include media-tablet {
+    flex-direction: row;
+}
+}
+
+/// GRID
+
+.grid {
+  display:flex;
+  width: 100%;
+}
+.grid-col {
+  flex:1;
+  padding-right:0.025rem;
+}
+
+.grid-item{
+  display: flex;
+  background-color: white;
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+  padding-bottom:0.025rem;
+
+  @include media-tablet {
+      padding-bottom:0.1rem;
+  }
+  &:hover {
+    opacity: 0.85;
+    cursor: pointer;
+  }
+}
+
+.grid-col--2, .grid-col--3 {
+  display:none;
+}
+
+
+@media (min-width:768px) {
+  .grid-col {
+    padding-right:0.1rem;
+  }
+
+  .grid-col:last-child {
+    padding: 0px;
+  }
+
+  .grid-col--2 {
+    display:block;
+  }
+}
+
+@media (min-width:1080px) {
+  .grid-col--3 {
+    display:block;
+  }
+}
