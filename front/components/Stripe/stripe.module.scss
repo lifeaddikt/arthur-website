@@ -8,22 +8,6 @@
     border-top: 1px solid black;
     position: relative;
 
-    &__imgHidden {
-        display: none;
-
-        @include media-tablet {
-            display: block;
-        }
-    }
-
-    &__imgDisplay {
-        display: block;
-
-        @include media-tablet {
-            display: none;
-        }
-    }
-
     &__filter {
         position: absolute;
         width:100%;

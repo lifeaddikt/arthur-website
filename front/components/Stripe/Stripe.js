@@ -3,31 +3,31 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/future/image'
 
-const Stripe = ({ slug, name, desktop_img_url, mobile_img_url }) => {
+const Stripe = ({ slug, name, desktop_img_url, mobile_img_url, isMobile }) => {
 
   return (
     <div className={styles.stripe}>
-      <Image
-        quality={100}
-        src={desktop_img_url}
-        alt={`Image de présentation de la collection ${name}.`}
-        sizes='(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw'
-        fill
-        style={{ objectFit: 'cover' }}
-        className={mobile_img_url.length > 0 ? styles.stripe__imgHidden : ''}
-      />
-      {mobile_img_url.length > 0 && (
+      {isMobile ? (
         <Image
-          src={mobile_img_url}
+          src={mobile_img_url.length > 0 ? mobile_img_url : desktop_img_url}
           alt={`Image de présentation de la collection ${name}.`}
           fill
           style={{ objectFit: 'cover' }}
-          className={styles.stripe__imgDisplay}
+          sizes='75vw'
+          priority
+        />
+      ) : (
+        <Image
+          quality={100}
+          src={desktop_img_url}
+          alt={`Image de présentation de la collection ${name}.`}
+          fill
+          sizes='50vw'
+          style={{ objectFit: 'cover' }}
+          priority
         />
       )}
-      <Link href={'/collection/' + slug }>
+      <Link href={'/collection/' + slug}>
         <h2>{name}</h2>
       </Link>
       <div className={styles.stripe__filter}></div>
@@ -40,6 +40,7 @@ Stripe.propTypes = {
   name: PropTypes.string.isRequired,
   desktop_img_url: PropTypes.string.isRequired,
   mobile_img_url: PropTypes.string,
+  isMobile: PropTypes.bool.isRequired,
 }
 
 export default Stripe
