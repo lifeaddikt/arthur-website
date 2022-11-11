@@ -16,6 +16,7 @@ const Grid = ({ pictures }) => {
       <div className='grid-col grid-col--4'></div>
 
       {pictures.map(picture => {
+        console.log(picture._embedded)
         return (
           <div className='grid-item' key={picture.id}>
             <Link href={`${router.asPath}/picture/${picture.id}`}>
