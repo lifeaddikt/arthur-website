@@ -12,7 +12,7 @@ const pictureService = {
   },
 
   loadPictureById : async (id) => {
-    return fetch(`${pictureService.baseUrl}/picture/{id}`)
+    return fetch(`${pictureService.baseUrl}/picture/${id}?_embed`)
     .then(res => res.json())
   },
 }

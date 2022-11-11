@@ -3,9 +3,11 @@ import Image from 'next/future/image'
 import Link from 'next/link'
 import Nav from '../Nav/Nav.js'
 import styles from './overview.module.scss'
-import test from '../../public/images/street.jpeg'
+import PropTypes from 'prop-types'
 
-const Overview = () => (
+const Overview = ({pictureData}) => {
+  console.log(pictureData)
+   return (
   <div className={styles.container}>
     <Link href='/collection'>
       <div className={styles.container__cross}>
@@ -28,6 +30,10 @@ const Overview = () => (
     </div>
     <Nav />
   </div>
-)
+)}
+
+Overview.propTypes = {
+  pictureData: PropTypes.object.isRequired,
+}
 
 export default Overview
