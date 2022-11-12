@@ -4,21 +4,26 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import React from 'react'
+import Masonry from 'react-masonry-css'
 
 const Grid = ({ pictures }) => {
   const router = useRouter()
 
-  return (
-    <div className='grid'>
-      <div className='grid-col grid-col--1'></div>
-      <div className='grid-col grid-col--2'></div>
-      <div className='grid-col grid-col--3'></div>
-      <div className='grid-col grid-col--4'></div>
+  const breakpointColumnsObj = {
+    default: 3,
+    700: 2,
+  };
+  
 
+  return (
+    <Masonry
+      breakpointCols={breakpointColumnsObj}
+      className='my-masonry-grid'
+      columnClassName='my-masonry-grid_column'>
       {pictures.map(picture => {
         console.log(picture._embedded)
         return (
-          <div className='grid-item' key={picture.id}>
+          <div key={picture.id}>
             <Link href={`${router.asPath}/picture/${picture.id}`}>
               <a style={{ display: 'contents' }}>
                 <Image
@@ -29,7 +34,7 @@ const Grid = ({ pictures }) => {
                   width='0'
                   height='0'
                   sizes='25vw' /// A FAIRE
-                  style={{ width: '100%', height: '100%' }}
+                  style={{ width: '100%', height: '100%', display: 'block' }}
                   placeholder='blur'
                   blurDataURL='https://live.staticflickr.com/65535/51119804658_41d0955d57_h.jpg'
                   alt='à faire'
@@ -39,7 +44,7 @@ const Grid = ({ pictures }) => {
           </div>
         )
       })}
-    </div>
+    </Masonry>
   )
 }
 

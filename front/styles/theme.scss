@@ -46,52 +46,25 @@ body {
 
 /// GRID
 
-.grid {
-  display:flex;
-  width: 100%;
+.my-masonry-grid {
+  display: flex;
+  margin-left: -2px; /* gutter size offset */
+  width: auto;
 }
-.grid-col {
-  flex:1;
-  padding-right:0.025rem;
+.my-masonry-grid_column {
+  padding-left: 2px; /* gutter size */
+  background-clip: padding-box;
 }
 
-.grid-item{
-  display: flex;
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  margin-bottom: 2px;
   background-color: white;
   opacity: 1;
   transition: opacity 300ms ease-out;
-  padding-bottom:0.025rem;
 
-  @include media-tablet {
-      padding-bottom:0.1rem;
-  }
   &:hover {
     opacity: 0.85;
     cursor: pointer;
-  }
-}
-
-.grid-col--2, .grid-col--3 {
-  display:none;
-}
-
-
-@media (min-width:768px) {
-  .grid-col {
-    padding-right:0.1rem;
-  }
-
-  .grid-col:last-child {
-    padding: 0px;
-  }
-
-  .grid-col--2 {
-    display:block;
-  }
-}
-
-@media (min-width:1080px) {
-  .grid-col--3 {
-    display:block;
   }
 }
