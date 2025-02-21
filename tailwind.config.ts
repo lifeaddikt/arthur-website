@@ -27,6 +27,10 @@ export default {
       'theme-black': 'var(--theme-black)',
       'theme-white': 'var(--theme-white)',
     },
+    boxShadow: {
+      'theme-white': '0 0 10px 0 rgba(255, 255, 255, 0.5)',
+      'theme-black': '0 0 10px 0 rgba(0, 0, 0, 0.5)',
+    },
   },
   plugins: [],
 } satisfies Config

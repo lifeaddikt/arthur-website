@@ -1,4 +1,5 @@
 import NavbarClient from './NavbarClient'
+import NavbarClientMobile from './NavbarClientMobile'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
@@ -8,7 +9,12 @@ const Navbar = async () => {
     collection: 'photographies-collection',
   })
 
-  return <NavbarClient collections={collections?.docs || []} />
+  return (
+    <>
+      <NavbarClient collections={collections?.docs || []} />
+      <NavbarClientMobile collections={collections?.docs || []} />
+    </>
+  )
 }
 
 export default Navbar

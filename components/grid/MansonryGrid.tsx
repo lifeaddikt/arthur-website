@@ -18,7 +18,10 @@ const MansonryGrid = ({
 
   return (
     <Masonry
-      breakpointCols={3}
+      breakpointCols={{
+        default: 3,
+        768: 1 // Switch to 1 column on mobile screens
+      }}
       className='my-masonry-grid mt-[32px]'
       columnClassName='my-masonry-grid_column'>
       {photos?.map((photo: Photography, index: number) => (

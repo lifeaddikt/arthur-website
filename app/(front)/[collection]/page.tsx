@@ -57,7 +57,7 @@ const CollectionPage = async ({
       className='flex-1 h-full overflow-y-auto pt-[32px] px-[32px]'
       id='collection-main'>
       <ScrollRestoration />
-      <div className='flex gap-10 items-center mb-[25px]'>
+      <div className='flex flex-col lg:flex-row gap-10 items-center mb-[25px]'>
         <h1 className='text-4xl capitalize font-black'>
           {collectionData?.docs[0]?.name}
         </h1>
