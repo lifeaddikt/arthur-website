@@ -1,8 +1,6 @@
 'use client'
 import { useState, useRef } from 'react'
-import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import Instagram from '../icons/Instagram'
 import { PhotographiesCollection } from '@/payload-types'
 import Retract from '../icons/Retract'
 import Open from '../icons/Open'
@@ -10,6 +8,7 @@ import Burger from '../icons/Burger'
 import ThemeToggle from '../ThemeToggle'
 import useClickOutside from '@/hooks/useClickOutside'
 import MenuLinks from './MenuLinks'
+import { Logo, SocialLinks, ContactInfo } from './NavElements'
 
 const NavbarClient = ({
   collections,
@@ -23,6 +22,30 @@ const NavbarClient = ({
 
   useClickOutside(menuRef, () => setRetractMenuOpen(false), burgerRef)
 
+  const RetractedMenu = () => (
+    <motion.div
+      ref={menuRef}
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.2 }}
+      className='absolute left-[60px] top-0 bg-theme-white p-8 flex flex-col gap-10 border-b border-r border-theme-black'>
+      <MenuLinks collections={collections} setOpen={setRetractMenuOpen} />
+      <SocialLinks />
+    </motion.div>
+  )
+
+  const ExpandedMenu = () => (
+    <>
+      <div className='flex items-center'>
+        <Logo />
+      </div>
+      <div className='flex flex-col gap-5 uppercase'>
+        <MenuLinks collections={collections} setOpen={setRetractMenuOpen} />
+      </div>
+      <ContactInfo />
+    </>
+  )
 
   return (
     <nav
@@ -35,46 +58,11 @@ const NavbarClient = ({
             <Burger />
           </button>
           <AnimatePresence>
-            {retractMenuOpen && (
-              <motion.div
-                ref={menuRef}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.2 }}
-                className='absolute left-[60px] top-0 bg-theme-white p-8 flex flex-col gap-10 border-b border-r border-theme-black'>
-                <MenuLinks collections={collections} setOpen={setRetractMenuOpen} />
-                <div className='flex gap-3 text-sm'>
-                  <Instagram />
-                  <ThemeToggle />
-                </div>
-              </motion.div>
-            )}
+            {retractMenuOpen && <RetractedMenu />}
           </AnimatePresence>
         </>
       )}
-      {isOpen && (
-        <>
-          <div className='flex items-center'>
-            <Link href='/' className='text-4xl font-extrabold uppercase'>
-              Arthur <br /> Paumier
-            </Link>
-          </div>
-          <div className='flex flex-col gap-5 uppercase'>
-            <MenuLinks collections={collections} setOpen={setRetractMenuOpen} />
-          </div>
-          <div className='flex flex-col gap-3 text-sm'>
-            <Instagram />
-            <div>
-              <p>Contact :</p>
-              <a href='mailto:paumier.arthur@gmail.com'>
-                paumier.arthur@gmail.com
-              </a>
-            </div>
-            <p>&copy; Victor Paumier, {new Date().getFullYear()}</p>
-          </div>
-        </>
-      )}
+      {isOpen && <ExpandedMenu />}
       {isOpen ? (
         <div className='flex justify-between mt-auto w-[90%]'>
           <ThemeToggle />

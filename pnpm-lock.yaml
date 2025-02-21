@@ -16,7 +16,7 @@ importers:
         version: 3.17.1(@types/react@19.0.2)(graphql@16.10.0)(monaco-editor@0.52.2)(next@15.1.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.17.1(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
       '@payloadcms/payload-cloud':
         specifier: ^3.15.1
-        version: 3.17.1(@aws-sdk/client-sso-oidc@3.714.0(@aws-sdk/client-sts@3.714.0))(payload@3.17.1(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))
+        version: 3.17.1(@aws-sdk/client-sso-oidc@3.714.0(@aws-sdk/client-sts@3.714.0))(encoding@0.1.13)(payload@3.17.1(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))
       '@payloadcms/richtext-lexical':
         specifier: ^3.15.1
         version: 3.17.1(zcdg2gbq4fmsggb5gxnac6hobe)
@@ -44,6 +44,9 @@ importers:
       react-masonry-css:
         specifier: ^1.0.16
         version: 1.0.16(react@19.0.0)
+      sharp:
+        specifier: ^0.33.5
+        version: 0.33.5
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -2134,6 +2137,9 @@ packages:
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
+  encoding@0.1.13:
+    resolution: {integrity: sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==}
+
   end-of-stream@1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
 
@@ -2569,6 +2575,10 @@ packages:
   http-status@1.6.2:
     resolution: {integrity: sha512-oUExvfNckrpTpDazph7kNG8sQi5au3BeTo0idaZFXEhTaJKu7GNJCLHI0rYY2wljm548MSTM+Ljj/c6anqu2zQ==}
     engines: {node: '>= 0.4.0'}
+
+  iconv-lite@0.6.3:
+    resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
+    engines: {node: '>=0.10.0'}
 
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
@@ -3567,6 +3577,9 @@ packages:
   safe-stable-stringify@2.5.0:
     resolution: {integrity: sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==}
     engines: {node: '>=10'}
+
+  safer-buffer@2.1.2:
+    resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
   sanitize-filename@1.6.3:
     resolution: {integrity: sha512-y/52Mcy7aw3gRm7IrcGDFx/bCk4AhRh2eI9luHOQM86nZsqwiRkkq2GekHXBBD+SmPidc8i2PqtYZl+pWJ8Oeg==}
@@ -5576,14 +5589,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@payloadcms/payload-cloud@3.17.1(@aws-sdk/client-sso-oidc@3.714.0(@aws-sdk/client-sts@3.714.0))(payload@3.17.1(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))':
+  '@payloadcms/payload-cloud@3.17.1(@aws-sdk/client-sso-oidc@3.714.0(@aws-sdk/client-sts@3.714.0))(encoding@0.1.13)(payload@3.17.1(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))':
     dependencies:
       '@aws-sdk/client-cognito-identity': 3.714.0
       '@aws-sdk/client-s3': 3.715.0
       '@aws-sdk/credential-providers': 3.715.0(@aws-sdk/client-sso-oidc@3.714.0(@aws-sdk/client-sts@3.714.0))
       '@aws-sdk/lib-storage': 3.715.0(@aws-sdk/client-s3@3.715.0)
       '@payloadcms/email-nodemailer': 3.17.1(payload@3.17.1(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))
-      amazon-cognito-identity-js: 6.3.12
+      amazon-cognito-identity-js: 6.3.12(encoding@0.1.13)
       nodemailer: 6.9.10
       payload: 3.17.1(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
       resend: 0.17.2
@@ -6194,12 +6207,12 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
-  amazon-cognito-identity-js@6.3.12:
+  amazon-cognito-identity-js@6.3.12(encoding@0.1.13):
     dependencies:
       '@aws-crypto/sha256-js': 1.2.2
       buffer: 4.9.2
       fast-base64-decode: 1.0.0
-      isomorphic-unfetch: 3.1.0
+      isomorphic-unfetch: 3.1.0(encoding@0.1.13)
       js-cookie: 2.2.1
     transitivePeerDependencies:
       - encoding
@@ -6433,13 +6446,11 @@ snapshots:
     dependencies:
       color-name: 1.1.4
       simple-swizzle: 0.2.2
-    optional: true
 
   color@4.2.3:
     dependencies:
       color-convert: 2.0.1
       color-string: 1.9.1
-    optional: true
 
   colorette@2.0.20: {}
 
@@ -6560,8 +6571,7 @@ snapshots:
 
   dequal@2.0.3: {}
 
-  detect-libc@2.0.3:
-    optional: true
+  detect-libc@2.0.3: {}
 
   devlop@1.1.0:
     dependencies:
@@ -6634,6 +6644,11 @@ snapshots:
   emoji-regex@8.0.0: {}
 
   emoji-regex@9.2.2: {}
+
+  encoding@0.1.13:
+    dependencies:
+      iconv-lite: 0.6.3
+    optional: true
 
   end-of-stream@1.4.4:
     dependencies:
@@ -7274,6 +7289,11 @@ snapshots:
 
   http-status@1.6.2: {}
 
+  iconv-lite@0.6.3:
+    dependencies:
+      safer-buffer: 2.1.2
+    optional: true
+
   ieee754@1.2.1: {}
 
   ignore@5.3.2: {}
@@ -7316,8 +7336,7 @@ snapshots:
 
   is-arrayish@0.2.1: {}
 
-  is-arrayish@0.3.2:
-    optional: true
+  is-arrayish@0.3.2: {}
 
   is-async-function@2.0.0:
     dependencies:
@@ -7439,9 +7458,9 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  isomorphic-unfetch@3.1.0:
+  isomorphic-unfetch@3.1.0(encoding@0.1.13):
     dependencies:
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       unfetch: 4.2.0
     transitivePeerDependencies:
       - encoding
@@ -7888,9 +7907,11 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  node-fetch@2.7.0:
+  node-fetch@2.7.0(encoding@0.1.13):
     dependencies:
       whatwg-url: 5.0.0
+    optionalDependencies:
+      encoding: 0.1.13
 
   nodemailer@6.9.10: {}
 
@@ -8441,6 +8462,9 @@ snapshots:
 
   safe-stable-stringify@2.5.0: {}
 
+  safer-buffer@2.1.2:
+    optional: true
+
   sanitize-filename@1.6.3:
     dependencies:
       truncate-utf8-bytes: 1.0.2
@@ -8510,7 +8534,6 @@ snapshots:
       '@img/sharp-wasm32': 0.33.5
       '@img/sharp-win32-ia32': 0.33.5
       '@img/sharp-win32-x64': 0.33.5
-    optional: true
 
   shebang-command@2.0.0:
     dependencies:
@@ -8551,7 +8574,6 @@ snapshots:
   simple-swizzle@0.2.2:
     dependencies:
       is-arrayish: 0.3.2
-    optional: true
 
   simple-wcswidth@1.0.1: {}
 
