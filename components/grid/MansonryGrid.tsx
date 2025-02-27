@@ -4,7 +4,6 @@ import Masonry from 'react-masonry-css'
 import { Photography } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useLenis } from 'lenis/react'
 
 type MasonryGridProps = {
   photos: Photography[]
@@ -12,8 +11,6 @@ type MasonryGridProps = {
 }
 
 const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
-  const lenis = useLenis()
-  console.log(lenis)
   const handlePictureClick = (pictureId: number) => {
     sessionStorage.setItem(`${collection}lastPictureSeen`, pictureId.toString())
   }
