@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "payload": "cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload"
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload",
+    "migrate": "cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload migrate"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.15.1",
