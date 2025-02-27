@@ -13,13 +13,6 @@ export const Series: CollectionConfig = {
       required: true,
     },
     {
-      name: 'parentCollections',
-      label: 'Collections associées',
-      type: 'join',
-      collection: 'photographies-collection',
-      on: 'series',
-    },
-    {
       name: 'photos',
       label: 'Photos associées',
       type: 'join',

@@ -18,9 +18,22 @@ export const Media: CollectionConfig = {
       {
         name: 'thumbnail',
         width: 400,
-        height: 300,
-        position: 'center',
+        position: 'centre',
       },
+      {
+        name: 'blur',
+        width: 10,
+        height: undefined,
+        position: 'centre',
+      }
     ],
+    mimeTypes: ['image/*'],
+    formatOptions: {
+      format: 'webp',
+      options: {
+        quality: 80,
+        effort: 6,    
+      }
+    },
   },
 }

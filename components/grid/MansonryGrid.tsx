@@ -26,6 +26,7 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
       className='my-masonry-grid mt-8'
       columnClassName='my-masonry-grid_column'>
       {photos.map(({ id, picture }, index) => {
+        console.log(picture)
         if (typeof picture === 'number' || !picture?.url) return null
 
         return (
@@ -40,7 +41,7 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
                 width={Number(picture.width) || 0}
                 height={Number(picture.height) || 0}
                 placeholder='blur'
-                blurDataURL={picture.url}
+                blurDataURL={picture.sizes?.blur?.url || ''}
               />
             </Link>
           </div>

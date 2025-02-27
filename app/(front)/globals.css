@@ -10,22 +10,15 @@ a:hover {
   text-decoration: underline;
 }
 
-:root {
-  --theme-black: #000000;
-  --theme-white: #ffffff;
-  --theme-grey: #e4e4e5;
-}
-
-.dark {
-  --theme-black: #ffffff;
-  --theme-white: #000000;
-  --theme-grey: #2d343c;
-}
-
 body {
-  color: var(--theme-black);
-  background: var(--theme-white);
+  color: black;
+  background: white;
   font-family: Helvetica-Neue, sans-serif;
+}
+
+.dark body {
+  color: white;
+  background: black;
 }
 
 .my-masonry-grid {

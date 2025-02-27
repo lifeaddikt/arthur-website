@@ -24,15 +24,15 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode
 }>) => {
+  
   return (
     <html lang='en' suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem={false} disableTransitionOnChange>
-        <div className='flex w-[100vw] h-[100vh] overflow-hidden'>
-          <Navbar />
-          {children}
-        </div>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem={false}>
+          <div className='flex w-[100vw] h-[100vh] overflow-hidden'>
+            <Navbar />
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

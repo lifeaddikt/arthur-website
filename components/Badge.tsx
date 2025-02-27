@@ -14,8 +14,8 @@ const Badge = ({
   return (
     <Link
       href={text === 'All' ? `/${collection}` : `/${collection}?activeSerie=${id}`}
-      className={`cursor-pointer border border-theme-black p-2 text-sm transition-all ${
-        active ? 'bg-theme-black text-theme-white' : 'text-theme-black hover:bg-gray-700'
+      className={`cursor-pointer border p-2 text-sm transition-all ${
+        active ? 'bg-black text-white dark:bg-white dark:text-black' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
       }`}
     >
       {text}

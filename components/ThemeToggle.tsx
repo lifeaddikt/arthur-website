@@ -20,7 +20,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className='flex items-center justify-center w-12 h-6 rounded-full focus:outline-none focus:ring-1 focus:ring-offset-1 transition-colors duration-200 bg-theme-grey'
+      className='flex items-center justify-center w-12 h-6 rounded-full focus:outline-none focus:ring-1 focus:ring-offset-1 transition-colors duration-200 bg-gray-200 dark:bg-gray-700'
       aria-label={theme === 'dark' ? 'Use light mode' : 'Use dark mode'}>
       <div
         className={`w-5 h-5 rounded-full bg-white shadow-sm transform transition-transform duration-200 flex items-center justify-center ${
@@ -29,7 +29,7 @@ const ThemeToggle = () => {
         {theme === 'dark' ? (
           <Moon />
         ) : (
-         <Sun />
+          <Sun />
         )}
       </div>
     </button>

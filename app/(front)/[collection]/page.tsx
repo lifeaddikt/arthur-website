@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import Badge from '@/components/Badge'
 import { Series } from '@/payload-types'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import ScrollRestoration from '@/hooks/ScrollRestoration' 
 
 const CollectionPage = async ({
@@ -26,7 +26,7 @@ const CollectionPage = async ({
   })
 
   if (!collectionData.docs.length) {
-    redirect('/')
+    notFound()
   }
 
   const photos = await payload.find({
@@ -45,8 +45,17 @@ const CollectionPage = async ({
           : []),
       ],
     },
+    depth: 2,
     pagination: false,
   })
+
+  const uniqueSeries = Array.from(
+    new Set(
+      photos.docs
+        .flatMap(photo => photo.series)
+        .filter((series): series is Series => series !== null && series !== undefined)
+    )
+  )
 
   if (!photos.docs.length) {
     redirect(`/${collection}`)
@@ -63,17 +72,15 @@ const CollectionPage = async ({
         </h1>
         <div className='flex gap-3 flex-wrap'>
           <Badge text='All' active={!activeSerie} collection={collection} />
-          {collectionData?.docs[0]?.series
-            ?.filter((serie): serie is Series => typeof serie !== 'number')
-            .map((serie: Series, index: number) => (
-              <Badge
-                key={index}
-                text={serie.name}
-                active={Number(activeSerie) === serie.id}
-                collection={collection}
-                id={serie.id}
-              />
-            ))}
+          {uniqueSeries.map((serie: Series, index: number) => (
+            <Badge
+              key={index}
+              text={serie.name}
+              active={Number(activeSerie) === serie.id}
+              collection={collection}
+              id={serie.id}
+            />
+          ))}
         </div>
       </div>
       <div className='border-b border-theme-black' />

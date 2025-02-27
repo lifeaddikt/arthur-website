@@ -22,13 +22,6 @@ export const PhotographiesCollection: CollectionConfig = {
       },
     },
     {
-      name: 'series',
-      label: 'Séries associées',
-      type: 'relationship',
-      relationTo: 'series',
-      hasMany: true,
-    },
-    {
       name: 'photos',
       label: 'Photos associées',
       type: 'join',
