@@ -4,7 +4,8 @@ import config from '@payload-config'
 import Badge from '@/components/Badge'
 import { Series } from '@/payload-types'
 import { notFound, redirect } from 'next/navigation'
-import ScrollRestoration from '@/hooks/ScrollRestoration' 
+import ScrollRestoration from '@/hooks/ScrollRestoration'
+import { ReactLenis } from 'lenis/react'
 
 const CollectionPage = async ({
   params,
@@ -52,8 +53,10 @@ const CollectionPage = async ({
   const uniqueSeries = Array.from(
     new Set(
       photos.docs
-        .flatMap(photo => photo.series)
-        .filter((series): series is Series => series !== null && series !== undefined)
+        .flatMap((photo) => photo.series)
+        .filter(
+          (series): series is Series => series !== null && series !== undefined
+        )
     )
   )
 
@@ -62,33 +65,33 @@ const CollectionPage = async ({
   }
 
   return (
-    <main
-      className='flex-1 h-full overflow-y-auto pt-[32px] px-[32px]'
-      id='collection-main'>
+      <ReactLenis className='flex-1 h-full overflow-y-auto pt-[32px] px-[32px]' options={{ smoothWheel: true, autoRaf: true }}>
       <ScrollRestoration />
-      <div className='flex flex-col lg:flex-row gap-10 items-center mb-[25px]'>
-        <h1 className='text-4xl capitalize font-black'>
-          {collectionData?.docs[0]?.name}
-        </h1>
-        <div className='flex gap-3 flex-wrap'>
-          <Badge text='All' active={!activeSerie} collection={collection} />
-          {uniqueSeries.map((serie: Series, index: number) => (
-            <Badge
-              key={index}
-              text={serie.name}
-              active={Number(activeSerie) === serie.id}
-              collection={collection}
-              id={serie.id}
-            />
-          ))}
+      <main>
+        <div className='flex flex-col lg:flex-row gap-10 items-center mb-[25px]'>
+          <h1 className='text-4xl capitalize font-black'>
+            {collectionData?.docs[0]?.name}
+          </h1>
+          <div className='flex gap-3 flex-wrap'>
+            <Badge text='All' active={!activeSerie} collection={collection} />
+            {uniqueSeries.map((serie: Series, index: number) => (
+              <Badge
+                key={index}
+                text={serie.name}
+                active={Number(activeSerie) === serie.id}
+                collection={collection}
+                id={serie.id}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      <div className='border-b border-theme-black' />
-      <MansonryGrid
-        photos={photos?.docs}
-        collection={collection?.toLowerCase()}
-      />
-    </main>
+        <div className='border-b border-theme-black' />
+        <MansonryGrid
+          photos={photos?.docs}
+          collection={collection?.toLowerCase()}
+        />
+        </main>
+      </ReactLenis>
   )
 }
 

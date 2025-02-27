@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import Navbar from '@/components/nav/Navbar'
 import { ThemeProvider } from 'next-themes'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const geistSans = Geist({
@@ -34,6 +35,7 @@ const RootLayout = ({
             {children}
           </div>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   )

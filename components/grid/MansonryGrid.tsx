@@ -4,6 +4,7 @@ import Masonry from 'react-masonry-css'
 import { Photography } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useLenis } from 'lenis/react'
 
 type MasonryGridProps = {
   photos: Photography[]
@@ -11,6 +12,8 @@ type MasonryGridProps = {
 }
 
 const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
+  const lenis = useLenis()
+  console.log(lenis)
   const handlePictureClick = (pictureId: number) => {
     sessionStorage.setItem(`${collection}lastPictureSeen`, pictureId.toString())
   }
@@ -26,7 +29,6 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
       className='my-masonry-grid mt-8'
       columnClassName='my-masonry-grid_column'>
       {photos.map(({ id, picture }, index) => {
-        console.log(picture)
         if (typeof picture === 'number' || !picture?.url) return null
 
         return (
