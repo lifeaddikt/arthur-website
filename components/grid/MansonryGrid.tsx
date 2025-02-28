@@ -4,6 +4,7 @@ import Masonry from 'react-masonry-css'
 import { Photography } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 type MasonryGridProps = {
   photos: Photography[]
@@ -27,9 +28,15 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
       columnClassName='my-masonry-grid_column'>
       {photos.map(({ id, picture }, index) => {
         if (typeof picture === 'number' || !picture?.url) return null
-
         return (
-          <div key={id} data-picture-id={id}>
+          <motion.div
+            key={id}
+            data-picture-id={id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
+          >
             <Link href={`/${collection}/${id}`} onClick={() => handlePictureClick(id)}>
               <Image
                 className='dark:invert'
@@ -44,7 +51,7 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
                 blurDataURL={picture.sizes?.blur?.url || ''}
               />
             </Link>
-          </div>
+          </motion.div>
         )
       })}
     </Masonry>

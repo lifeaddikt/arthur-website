@@ -60,7 +60,7 @@ const CollectionPage = async ({
     )
   )
 
-  if (!photos.docs.length) {
+  if (!photos.docs.length && activeSerie) {
     redirect(`/${collection}`)
   }
 
