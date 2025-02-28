@@ -21,7 +21,7 @@ const NavbarClientMobile = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: '100%' }}
       transition={{ duration: 0.3 }}
-      className='fixed bottom-0 left-0 w-full h-full bg-theme-white flex flex-col justify-center items-center gap-10 z-50'>
+      className='fixed bottom-0 left-0 w-full h-full bg-white dark:bg-black flex flex-col justify-center items-center gap-10 z-50'>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -64,7 +64,7 @@ const NavbarClientMobile = ({
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.2 }}
           onClick={() => setIsOpen(!isOpen)}
-          className='lg:hidden fixed bottom-4 right-6 z-50'>
+          className='lg:hidden fixed bottom-4 right-6 z-50 border border-black dark:border-white bg-white dark:bg-black p-1'>
           <Burger />
         </motion.button>
       ) : (

@@ -1,23 +1,26 @@
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import MansonryGrid from '@/components/grid/MansonryGrid'
+import { ReactLenis } from 'lenis/react'
 
 const Home = async () => {
   const payload = await getPayload({ config })
-  const collections = await payload.find({
-    collection: 'photographies-collection',
+  // For the home page we fetch all pictures
+  const pictures = await payload.find({
+    collection: 'photography',
+    limit: -1,
   })
 
-  if (!collections.docs.length) {
+  if (!pictures.docs.length) {
     notFound()
   }
 
-  const abstractCollection = collections.docs.find(
-    collection => collection.slug === 'abstract'
+  return (
+    <ReactLenis className='flex-1 h-full overflow-y-auto px-[32px] pt-[32px] -mt-8' options={{ smoothWheel: true, autoRaf: true }}>
+      <MansonryGrid photos={pictures.docs} collection='home' />
+    </ReactLenis>
   )
-
-  const redirectSlug = abstractCollection?.slug || collections.docs[0].slug
-  return redirect(`/${redirectSlug}`)
 }
 
 export default Home

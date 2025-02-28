@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useLayoutEffect } from 'react'
+import { useState, useRef, useLayoutEffect, useEffect } from 'react'
 import Close from '@/components/icons/Close'
 import Image from 'next/image'
 import { Photography } from '@/payload-types'
@@ -15,10 +15,41 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
     width: 0,
   })
 
-  useLayoutEffect(() => {
+  const updateImagePosition = () => {
     if (imageLoaded && imageRef.current) {
       const { top, left, width } = imageRef.current.getBoundingClientRect()
       setImagePosition({ top, left, width })
+    }
+  }
+
+  useLayoutEffect(() => {
+    updateImagePosition()
+  }, [imageLoaded])
+
+  useEffect(() => {
+    const handleResize = () => {
+      updateImagePosition()
+    }
+
+    // Create a MutationObserver to watch for changes in the DOM
+    const observer = new MutationObserver(handleResize)
+    
+    // Observe the document body for attribute changes
+    observer.observe(document.body, {
+      attributes: true, // Watch for attribute changes
+      subtree: true, // Observe all descendants
+    })
+
+    // Add resize event listener
+    window.addEventListener('resize', handleResize)
+
+    // Add a periodic check as a fallback
+    const interval = setInterval(updateImagePosition, 1000)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', handleResize)
+      clearInterval(interval)
     }
   }, [imageLoaded])
 
@@ -47,7 +78,7 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
           src={imageUrl}
           alt={imageAlt}
           fill
-          className='object-contain max-w-fit max-h-fit'
+          className='object-contain max-w-fit max-h-fit dark:invert'
           priority
           style={{
             top: 'unset',

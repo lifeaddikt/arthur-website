@@ -29,7 +29,7 @@ const RootLayout = ({
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem={false}>
+        <ThemeProvider attribute='class' defaultTheme='light' enableSystem={false}>
           <div className='flex w-[100vw] h-[100vh] overflow-hidden'>
             <Navbar />
             {children}

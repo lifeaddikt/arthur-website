@@ -32,6 +32,7 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
           <div key={id} data-picture-id={id}>
             <Link href={`/${collection}/${id}`} onClick={() => handlePictureClick(id)}>
               <Image
+                className='dark:invert'
                 draggable={false}
                 priority={index < 7}
                 loading={index < 7 ? 'eager' : 'lazy'}
