@@ -17,7 +17,7 @@ export const Media: CollectionConfig = {
     imageSizes: [
       {
         name: 'thumbnail',
-        width: 400,
+        width: 200,
         position: 'centre',
       },
       {
@@ -32,8 +32,13 @@ export const Media: CollectionConfig = {
       format: 'webp',
       options: {
         quality: 80,
-        effort: 6,    
+        effort: 6,
       }
+    },
+    resizeOptions: {
+      width: 1500,
+      height: 1500,
+      fit: 'inside',
     },
   },
 }

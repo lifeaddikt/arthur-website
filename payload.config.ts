@@ -26,10 +26,10 @@ export default buildConfig({
   collections: [Users, Media, PhotographiesCollection, Photography, Series],
   upload: {
     limits: {
-      fileSize: 10000000,
+      fileSize: 5000000,
     },
     abortOnLimit: true,
-    responseOnLimit: 'Dsl fréro fichier trop lourd. Taille maximum : 10Mo',
+    responseOnLimit: 'Dsl fréro fichier trop lourd. Taille maximum : 5Mo',
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

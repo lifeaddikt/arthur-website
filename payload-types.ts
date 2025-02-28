@@ -6,10 +6,65 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
     users: User;
     media: Media;
@@ -25,7 +80,6 @@ export interface Config {
       photos: 'photography';
     };
     series: {
-      parentCollections: 'photographies-collection';
       photos: 'photography';
     };
   };
@@ -121,6 +175,7 @@ export interface Media {
       height?: number | null;
       mimeType?: string | null;
       filesize?: number | null;
+      filename?: string | null;
     };
   };
 }
@@ -132,25 +187,6 @@ export interface PhotographiesCollection {
   id: number;
   name: string;
   slug: string;
-  series?: (number | Series)[] | null;
-  photos?: {
-    docs?: (number | Photography)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "series".
- */
-export interface Series {
-  id: number;
-  name: string;
-  parentCollections?: {
-    docs?: (number | PhotographiesCollection)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
   photos?: {
     docs?: (number | Photography)[] | null;
     hasNextPage?: boolean | null;
@@ -164,12 +200,25 @@ export interface Series {
  */
 export interface Photography {
   id: number;
-  title: string;
   place: string;
   date: string;
   picture: number | Media;
   collections: (number | PhotographiesCollection)[];
   series?: (number | Series)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "series".
+ */
+export interface Series {
+  id: number;
+  name: string;
+  photos?: {
+    docs?: (number | Photography)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -287,6 +336,16 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
+        blur?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
       };
 }
 /**
@@ -296,7 +355,6 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PhotographiesCollectionSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
-  series?: T;
   photos?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -306,7 +364,6 @@ export interface PhotographiesCollectionSelect<T extends boolean = true> {
  * via the `definition` "photography_select".
  */
 export interface PhotographySelect<T extends boolean = true> {
-  title?: T;
   place?: T;
   date?: T;
   picture?: T;
@@ -321,7 +378,6 @@ export interface PhotographySelect<T extends boolean = true> {
  */
 export interface SeriesSelect<T extends boolean = true> {
   name?: T;
-  parentCollections?: T;
   photos?: T;
   updatedAt?: T;
   createdAt?: T;

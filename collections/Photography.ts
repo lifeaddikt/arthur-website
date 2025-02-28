@@ -3,15 +3,9 @@ import { CollectionConfig } from 'payload'
 export const Photography: CollectionConfig = {
   slug: 'photography',
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: 'picture',
   },
   fields: [
-    {
-      name: 'title',
-      label: 'Titre de la photographie',
-      type: 'text',
-      required: true,
-    },
     {
       name: 'place',
       label: 'Lieu',
@@ -30,6 +24,7 @@ export const Photography: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       required: true,
+      displayPreview: true,
     },
     {
       name: 'collections',
