@@ -3,10 +3,9 @@ import { useState, useRef, useLayoutEffect, useEffect } from 'react'
 import Close from '@/components/icons/Close'
 import Image from 'next/image'
 import { Photography } from '@/payload-types'
-import { useRouter } from 'next/navigation'
+import { Link } from 'next-view-transitions'
 
 const ClientImage = ({ photo, collection }: { photo: Photography, collection: string }) => {
-  const router = useRouter()
   const [imageLoaded, setImageLoaded] = useState(false)
   const imageRef = useRef<HTMLImageElement>(null)
   const [imagePosition, setImagePosition] = useState({
@@ -44,7 +43,7 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
     window.addEventListener('resize', handleResize)
 
     // Add a periodic check as a fallback
-    const interval = setInterval(updateImagePosition, 1000)
+    const interval = setInterval(updateImagePosition, 100)
 
     return () => {
       observer.disconnect()
@@ -52,12 +51,6 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
       clearInterval(interval)
     }
   }, [imageLoaded])
-
-  const handleBackToGrid = () => {
-    const lastPictureSeen = sessionStorage.getItem(`${collection}lastPictureSeen`)
-    sessionStorage.removeItem(`${collection}lastPictureSeen`)
-    router.push(`/${collection}?lastPictureSeen=${lastPictureSeen}`)
-  }
 
   const imageUrl = typeof photo?.picture !== 'number' && photo?.picture.url 
     ? photo.picture.url 
@@ -67,9 +60,21 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
     ? photo.picture.alt
     : 'Photo'
 
+    // On regarde si on vient d'une autre page de photo
+    // Une autre page photo = un url qui contient /{collection}/{id}
+    // collection est identique à la data collection que l'on a dans les paramètres
+    // mais l'id est différent
+    // Le problème est que la page grid de photos est de la forme /{collection}
+    // et la page de la photo est de la forme /{collection}/{id}
+    // Donc on ne peut pas savoir si on vient de la page grid ou de la page de la photo
+    // à cause du /{collection}
+    // On va donc utiliser le referrer
+    
+    
+
   return (
     <>
-      <div className='w-full h-full relative flex items-center justify-center'>
+      <div className='w-full h-[65%] md:h-full relative flex items-center justify-center'>
         <Image
           onLoad={() => setImageLoaded(true)}
           ref={imageRef}
@@ -85,31 +90,36 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
             left: 'unset',
             bottom: 'unset',
             right: 'unset',
+            viewTransitionName: `photo-${photo.id}`,
           }}
         />
       </div>
 
-      {imageLoaded && (
-        <>
-          <p
-            className='fixed z-10 uppercase'
-            style={{
-              top: `${imagePosition.top - 30}px`,
-              left: `${imagePosition.left}px`,
-            }}>
-            {`${photo.place} - ${photo.date}`}
-          </p>
-          <div
-            onClick={handleBackToGrid}
-            className='fixed z-10 cursor-pointer'
-            style={{
-              top: `${imagePosition.top - 50}px`,
-              left: `${imagePosition.left + imagePosition.width - 25}px`,
-            }}>
-            <Close />
-          </div>
-        </>
-      )}
+        {imageLoaded && (
+          <>
+            <p
+              className='fixed z-10 uppercase'
+              style={{
+                top: `${imagePosition.top - 40}px`,
+                left: `${imagePosition.left}px`,
+              }}>
+              {`${photo.place} - ${photo.date}`}
+            </p>
+            <div
+              style={{
+                position: 'fixed',
+                top: `${imagePosition.top - 50}px`,
+                left: `${imagePosition.left + imagePosition.width - 25}px`,
+                zIndex: 10,
+              }}>
+              <Link
+                href={`/${collection}?lastPictureSeen=${photo.id}`}
+                className='cursor-pointer'>
+                <Close />
+              </Link>
+            </div>
+          </>
+        )}
     </>
   )
 }

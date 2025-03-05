@@ -45,15 +45,13 @@ const PicturePage = async ({ params }: { params: Promise<{ id: string; collectio
     ])
 
     return (
-      <main className='flex-1 h-full overflow-hidden flex flex-col items-center justify-center'>
-        <div className='w-[85%] h-[85%] flex flex-col gap-2'>
+      <main className='flex-1 h-[100vh] overflow-hidden flex flex-col justify-center md:justify-between items-center pt-8 px-8 md:pt-16 md:px-16'>
           <ClientImage photo={currentPhoto} collection={collection} />
           <PicturePageNav 
             prevPhoto={prevPhoto.docs[0] || null} 
             nextPhoto={nextPhoto.docs[0] || null}
             collection={collection}
           />
-        </div>
       </main>
     )
   } catch (error) {

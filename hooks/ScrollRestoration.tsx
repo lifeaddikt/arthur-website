@@ -15,7 +15,7 @@ const ScrollRestoration = () => {
       )
       
       if (pictureElement) {
-        pictureElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+        pictureElement.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' })
       }
     }
 

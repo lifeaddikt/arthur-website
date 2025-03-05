@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import MansonryGrid from '@/components/grid/MansonryGrid'
-import { ReactLenis } from 'lenis/react'
 
 const Home = async () => {
   const payload = await getPayload({ config })
@@ -17,9 +16,9 @@ const Home = async () => {
   }
 
   return (
-    <ReactLenis className='flex-1 h-full overflow-y-auto px-[32px] pt-[32px] -mt-8' options={{ smoothWheel: true, autoRaf: true }}>
+    <main className='flex-1 h-full overflow-y-auto px-[32px] pt-[32px] -mt-8'>
       <MansonryGrid photos={pictures.docs} collection='home' />
-    </ReactLenis>
+    </main>
   )
 }
 

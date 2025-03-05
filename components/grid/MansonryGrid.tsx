@@ -3,8 +3,9 @@
 import Masonry from 'react-masonry-css'
 import { Photography } from '@/payload-types'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import { motion } from 'framer-motion'
+
 
 type MasonryGridProps = {
   photos: Photography[]
@@ -12,10 +13,6 @@ type MasonryGridProps = {
 }
 
 const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
-  const handlePictureClick = (pictureId: number) => {
-    sessionStorage.setItem(`${collection}lastPictureSeen`, pictureId.toString())
-  }
-
   const breakpointColumns = {
     default: 3,
     768: 1,
@@ -35,9 +32,9 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.3 }}
           >
-            <Link href={`/${collection}/${id}`} onClick={() => handlePictureClick(id)}>
+            <Link href={`/${collection}/${id}`}>
               <Image
                 className='dark:invert'
                 draggable={false}
@@ -48,6 +45,7 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
                 width={Number(picture.width) || 0}
                 height={Number(picture.height) || 0}
                 placeholder='blur'
+                style={{ viewTransitionName: `photo-${id}` }}
                 blurDataURL={picture.sizes?.blur?.url || ''}
               />
             </Link>
