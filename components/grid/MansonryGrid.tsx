@@ -44,6 +44,7 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
                 alt={picture.alt || 'Photo'}
                 width={Number(picture.width) || 0}
                 height={Number(picture.height) || 0}
+                sizes="(max-width: 768px) 100vw, 33vw"
                 placeholder='blur'
                 style={{ viewTransitionName: `photo-${id}` }}
                 blurDataURL={picture.sizes?.blur?.url || ''}
