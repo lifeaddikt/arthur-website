@@ -53,7 +53,6 @@ export default buildConfig({
         },
         region: process.env.S3_REGION || '',
       },
-      clientUploads: true,
     }),
   ],
 })
