@@ -5,7 +5,6 @@ import Masonry from 'react-masonry-css'
 import { Photography } from '@/payload-types'
 import Image from 'next/image'
 import { Link } from 'next-view-transitions'
-import { motion } from 'framer-motion'
 
 
 type MasonryGridProps = {
@@ -28,13 +27,9 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
         console.log('picture', picture)
         if (typeof picture === 'number' || !picture?.url) return null
         return (
-          <motion.div
+          <div
             key={id}
             data-picture-id={id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
           >
             <Link href={`/${collection}/${id}`} prefetch={false}>
               <Image
@@ -53,7 +48,7 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
                 quality={75}
               />
             </Link>
-          </motion.div>
+          </div>
         )
       })}
     </Masonry>
