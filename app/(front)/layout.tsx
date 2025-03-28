@@ -21,12 +21,13 @@ export const metadata: Metadata = {
   description: 'Photographies portfolio',
 }
 
+const revalidate = 3600
+
 const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) => {
-
   return (
     <ViewTransitions>
       <html lang='en' suppressHydrationWarning>

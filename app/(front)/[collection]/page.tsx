@@ -135,6 +135,7 @@ const CollectionPage = async ({
         </div>
         <div className='border-b border-theme-black' />
         <MasonryGrid
+          // @ts-ignore
           photos={photosWithBlur}
           collection={collection?.toLowerCase()}
         />
