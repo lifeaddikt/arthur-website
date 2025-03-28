@@ -35,14 +35,12 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
     
     // Observe the document body for attribute changes
     observer.observe(document.body, {
-      attributes: true, // Watch for attribute changes
-      subtree: true, // Observe all descendants
+      attributes: true,
+      subtree: true,
     })
 
-    // Add resize event listener
     window.addEventListener('resize', handleResize)
 
-    // Add a periodic check as a fallback
     const interval = setInterval(updateImagePosition, 100)
 
     return () => {
@@ -59,18 +57,6 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
   const imageAlt = typeof photo?.picture !== 'number' && photo?.picture.alt
     ? photo.picture.alt
     : 'Photo'
-
-    // On regarde si on vient d'une autre page de photo
-    // Une autre page photo = un url qui contient /{collection}/{id}
-    // collection est identique à la data collection que l'on a dans les paramètres
-    // mais l'id est différent
-    // Le problème est que la page grid de photos est de la forme /{collection}
-    // et la page de la photo est de la forme /{collection}/{id}
-    // Donc on ne peut pas savoir si on vient de la page grid ou de la page de la photo
-    // à cause du /{collection}
-    // On va donc utiliser le referrer
-    
-    
 
   return (
     <>
@@ -92,6 +78,8 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
             right: 'unset',
             viewTransitionName: `photo-${photo.id}`,
           }}
+          placeholder={typeof photo?.picture !== 'number' ? 'blur' : undefined}
+          blurDataURL={typeof photo?.picture !== 'number' ? photo.picture.blurDataURL : undefined}
         />
       </div>
 

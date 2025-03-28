@@ -54,6 +54,7 @@ export default buildConfig({
         region: process.env.S3_REGION || '',
       },
       clientUploads: true,
+      cdnUrl: process.env.S3_CDN_URL || '',
     } as any),
   ],
 })

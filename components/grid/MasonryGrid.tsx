@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 import Masonry from 'react-masonry-css'
 import { Photography } from '@/payload-types'
 import Image from 'next/image'
@@ -12,7 +13,7 @@ type MasonryGridProps = {
   collection: string
 }
 
-const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
+const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
   const breakpointColumns = {
     default: 3,
     768: 1,
@@ -24,7 +25,7 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
       className='my-masonry-grid mt-8'
       columnClassName='my-masonry-grid_column'>
       {photos.map(({ id, picture }, index) => {
-        console.log(picture)
+        console.log('picture', picture)
         if (typeof picture === 'number' || !picture?.url) return null
         return (
           <motion.div
@@ -33,9 +34,9 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
           >
-            <Link href={`/${collection}/${id}`}>
+            <Link href={`/${collection}/${id}`} prefetch={false}>
               <Image
                 className='dark:invert'
                 draggable={false}
@@ -45,11 +46,11 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
                 alt={picture.alt || 'Photo'}
                 width={Number(picture.width) || 0}
                 height={Number(picture.height) || 0}
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 placeholder='blur'
                 style={{ viewTransitionName: `photo-${id}` }}
-                blurDataURL={'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSEkMjU0LS0yMi4qIiUvKTI+QjIyNjo6Pj4+LzI4RkU/QjU+Pj7/2wBDAR'}
-                quality={80}
+                blurDataURL={picture.blurDataURL}
+                quality={75}
               />
             </Link>
           </motion.div>
@@ -57,6 +58,8 @@ const MasonryGrid = ({ photos, collection }: MasonryGridProps) => {
       })}
     </Masonry>
   )
-}
+})
+
+MasonryGrid.displayName = 'MasonryGrid'
 
 export default MasonryGrid

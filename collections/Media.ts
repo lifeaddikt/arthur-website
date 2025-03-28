@@ -20,12 +20,6 @@ export const Media: CollectionConfig = {
         width: 200,
         position: 'centre',
       },
-      {
-        name: 'blur',
-        width: 10,
-        height: undefined,
-        position: 'centre',
-      }
     ],
     mimeTypes: ['image/*'],
     formatOptions: {

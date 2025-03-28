@@ -147,6 +147,7 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
+  blurDataURL: string | undefined;
   id: number;
   alt: string;
   updatedAt: string;
@@ -162,14 +163,6 @@ export interface Media {
   focalY?: number | null;
   sizes?: {
     thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    blur?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -327,16 +320,6 @@ export interface MediaSelect<T extends boolean = true> {
     | T
     | {
         thumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        blur?:
           | T
           | {
               url?: T;

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import MansonryGrid from '@/components/grid/MansonryGrid'
+import MasonryGrid from '@/components/grid/MasonryGrid'
 
 const Home = async () => {
   const payload = await getPayload({ config })
@@ -17,7 +17,7 @@ const Home = async () => {
 
   return (
     <main className='flex-1 h-full overflow-y-auto px-[32px] pt-[32px] -mt-8'>
-      <MansonryGrid photos={pictures.docs} collection='home' />
+      <MasonryGrid photos={pictures.docs} collection='home' />
     </main>
   )
 }
