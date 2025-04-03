@@ -15,7 +15,7 @@ const PicturePageNav = ({
   collection: string
 }) => {
   return (
-    <nav className='w-full md:mt-0 p-2 md:p-6'>
+    <nav className='w-full mb-16 md:mb-0 md:mt-0 p-2 md:p-6'>
       <ul className='flex justify-center items-center gap-6 uppercase'>
         {prevPhoto ? (
           <Link href={`/${collection}/${prevPhoto.id}`}>
