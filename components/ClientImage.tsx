@@ -6,7 +6,6 @@ import { Photography } from '@/payload-types'
 import { Link } from 'next-view-transitions'
 
 const ClientImage = ({ photo, collection }: { photo: Photography, collection: string }) => {
-  console.log('photo', photo)
   const [imageLoaded, setImageLoaded] = useState(false)
   const imageRef = useRef<HTMLImageElement>(null)
   const [imagePosition, setImagePosition] = useState({
