@@ -5,7 +5,8 @@ import Badge from '@/components/Badge'
 import { Series } from '@/payload-types'
 import { notFound, redirect } from 'next/navigation'
 import ScrollRestoration from '@/hooks/ScrollRestoration'
-import { getPlaiceholder } from 'plaiceholder'
+import { generateBlurPlaceholder } from '@/utils/image'
+import { ReactLenis } from 'lenis/react'
 
 // Revalidate pages every hour
 export const revalidate = 3600
@@ -67,36 +68,17 @@ const CollectionPage = async ({
       if (!photo.picture || typeof photo.picture === 'number' || !photo.picture.url) return photo
 
       try {
-        const url = photo.picture.url.startsWith('http') || photo.picture.url.startsWith('https')
-          ? photo.picture.url 
-          : `${process.env.NEXT_PUBLIC_URL}${photo.picture.url.startsWith('/') ? '' : '/'}${photo.picture.url}`
-        
-        console.log('Attempting to process image:', url)
-        
-        const imageResponse = await fetch(url, {
-          next: { revalidate: 3600 },
-        })
-
-        if (!imageResponse.ok) {
-          console.error(`Failed to fetch image: ${url} - Status: ${imageResponse.status}`)
-          return photo
+        const base64 = await generateBlurPlaceholder(photo.picture.url)
+        if (base64) {
+          return {
+            ...photo,
+            picture: {
+              ...photo.picture,
+              blurDataURL: base64,
+            },
+          }
         }
-        
-        const arrayBuffer = await imageResponse.arrayBuffer()
-        const buffer = Buffer.from(arrayBuffer)
-        
-        const { base64 } = await getPlaiceholder(buffer, { size: 10 })
-        
-        console.log('Successfully generated blur data for:', url)
-        console.log(base64)
-        
-        return {
-          ...photo,
-          picture: {
-            ...photo.picture,
-            blurDataURL: base64,
-          },
-        }
+        return photo
       } catch (err) {
         console.error('Error generating blur data:', err)
         return photo
@@ -119,7 +101,10 @@ const CollectionPage = async ({
   }
 
   return (
-    <div>
+    <ReactLenis
+      className='flex-1 h-full overflow-y-auto pt-[32px] px-[32px]'
+      options={{ smoothWheel: true, autoRaf: true }}
+    >
       <ScrollRestoration />
       <main>
         <div className='flex flex-col lg:flex-row gap-10 items-center mb-[25px]'>
@@ -145,7 +130,7 @@ const CollectionPage = async ({
           collection={collection?.toLowerCase()}
         />
       </main>
-    </div>
+    </ReactLenis>
   )
 }
 

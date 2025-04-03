@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import MasonryGrid from '@/components/grid/MasonryGrid'
-import { getPlaiceholder } from 'plaiceholder'
+import { generateBlurPlaceholder } from '@/utils/image'
 
 const Home = async () => {
   const payload = await getPayload({ config })
@@ -20,33 +20,17 @@ const Home = async () => {
       if (!photo.picture || typeof photo.picture === 'number' || !photo.picture.url) return photo
 
       try {
-        const url = photo.picture.url.startsWith('http') || photo.picture.url.startsWith('https')
-          ? photo.picture.url 
-          : `${process.env.NEXT_PUBLIC_URL}${photo.picture.url.startsWith('/') ? '' : '/'}${photo.picture.url}`
-        
-        console.log('Attempting to process image:', url)
-        
-        const imageResponse = await fetch(url, {
-          next: { revalidate: 3600 },
-        })
-
-        if (!imageResponse.ok) {
-          console.error(`Failed to fetch image: ${url} - Status: ${imageResponse.status}`)
-          return photo
+        const base64 = await generateBlurPlaceholder(photo.picture.url)
+        if (base64) {
+          return {
+            ...photo,
+            picture: {
+              ...photo.picture,
+              blurDataURL: base64,
+            },
+          }
         }
-        
-        const arrayBuffer = await imageResponse.arrayBuffer()
-        const buffer = Buffer.from(arrayBuffer)
-        
-        const { base64 } = await getPlaiceholder(buffer, { size: 10 })
-              
-        return {
-          ...photo,
-          picture: {
-            ...photo.picture,
-            blurDataURL: base64,
-          },
-        }
+        return photo
       } catch (err) {
         console.error('Error generating blur data:', err)
         return photo
