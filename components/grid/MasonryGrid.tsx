@@ -2,10 +2,16 @@
 
 import { memo } from 'react'
 import Masonry from 'react-masonry-css'
-import { Photography } from '@/payload-types'
+import { Photography, Media } from '@/payload-types'
 import Image from 'next/image'
 import { Link } from 'next-view-transitions'
 
+// Augment the Media interface from payload-types
+declare module '@/payload-types' {
+  interface Media {
+    blurDataURL?: string;
+  }
+}
 
 type MasonryGridProps = {
   photos: Photography[]
@@ -44,7 +50,7 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 placeholder='blur'
                 style={{ viewTransitionName: `photo-${id}` }}
-                blurDataURL={picture.blurDataURL}
+                blurDataURL={picture.blurDataURL || undefined}
                 quality={75}
               />
             </Link>

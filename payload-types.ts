@@ -147,7 +147,6 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  blurDataURL: string | undefined;
   id: number;
   alt: string;
   updatedAt: string;
