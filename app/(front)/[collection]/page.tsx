@@ -85,10 +85,11 @@ const CollectionPage = async ({
   }
 
   const photosWithBlur = await Promise.all(
-    photos.docs.map(async (photo) => {
+    photos.docs.map(async photo => {
       if (!photo.picture || typeof photo.picture === 'number' || !photo.picture.url) return photo
 
       try {
+        // Generate blur placeholder with smaller size for faster processing
         const base64 = await generateBlurPlaceholder(photo.picture.url)
         if (base64) {
           return {

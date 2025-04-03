@@ -17,9 +17,31 @@ type MasonryGridProps = {
   collection: string
 }
 
+// Helper function to determine appropriate image size
+const getOptimalImageDimensions = (
+  originalWidth: number,
+  originalHeight: number
+) => {
+  const maxWidth = 800 
+
+  if (!originalWidth || !originalHeight) {
+    return { width: 640, height: 480 }
+  }
+
+  if (originalWidth <= maxWidth) {
+    return { width: originalWidth, height: originalHeight }
+  }
+
+  const aspectRatio = originalHeight / originalWidth
+  const newHeight = Math.round(maxWidth * aspectRatio)
+
+  return { width: maxWidth, height: newHeight }
+}
+
 const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
   const breakpointColumns = {
     default: 3,
+    1024: 2,
     768: 1,
   }
 
@@ -31,6 +53,12 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
     >
       {photos.map(({ id, picture }, index) => {
         if (typeof picture === 'number' || !picture?.url) return null
+
+        const { width, height } = getOptimalImageDimensions(
+          Number(picture.width) || 0,
+          Number(picture.height) || 0
+        )
+
         return (
           <div key={id} data-picture-id={id}>
             <Link href={`/${collection}/${id}`} prefetch={false}>
@@ -41,13 +69,13 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
                 loading={index < 3 ? 'eager' : 'lazy'}
                 src={picture.url}
                 alt={picture.alt || 'Photo'}
-                width={Number(picture.width) || 0}
-                height={Number(picture.height) || 0}
-                sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
+                width={width}
+                height={height}
+                sizes='(max-width: 640px) 95vw, (max-width: 1024px) 45vw, 30vw'
                 placeholder='blur'
                 style={{ viewTransitionName: `photo-${id}` }}
                 blurDataURL={picture.blurDataURL || undefined}
-                quality={index < 3 ? 85 : 75}
+                quality={index < 3 ? 85 : 70}
                 fetchPriority={index < 3 ? 'high' : 'auto'}
               />
             </Link>
