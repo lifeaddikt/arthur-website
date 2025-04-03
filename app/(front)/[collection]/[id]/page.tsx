@@ -5,6 +5,42 @@ import ClientImage from '@/components/ClientImage'
 import { notFound } from 'next/navigation'
 import { getPlaiceholder } from 'plaiceholder'
 
+// Revalidate pages every hour
+export const revalidate = 3600
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config })
+  
+  // Get all collections
+  const collections = await payload.find({
+    collection: 'photographies-collection',
+    pagination: false,
+  })
+
+  // For each collection, get all photos
+  const params = []
+  
+  for (const collection of collections.docs) {
+    const photos = await payload.find({
+      collection: 'photography',
+      where: {
+        'collections.slug': { equals: collection.slug },
+      },
+      pagination: false,
+    })
+    
+    // Create params for each photo
+    const collectionPhotos = photos.docs.map(photo => ({
+      collection: collection.slug,
+      id: photo.id.toString(),
+    }))
+    
+    params.push(...collectionPhotos)
+  }
+  
+  return params
+}
+
 const PicturePage = async ({ params }: { params: Promise<{ id: string; collection: string }> }) => {
   const { id, collection } = await params
   const payload = await getPayload({ config })

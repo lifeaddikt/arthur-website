@@ -2,7 +2,7 @@
 
 import { memo } from 'react'
 import Masonry from 'react-masonry-css'
-import { Photography, Media } from '@/payload-types'
+import { Photography } from '@/payload-types'
 import Image from 'next/image'
 import { Link } from 'next-view-transitions'
 

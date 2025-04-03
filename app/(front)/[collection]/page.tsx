@@ -5,8 +5,19 @@ import Badge from '@/components/Badge'
 import { Series } from '@/payload-types'
 import { notFound, redirect } from 'next/navigation'
 import ScrollRestoration from '@/hooks/ScrollRestoration'
-import { ReactLenis } from 'lenis/react'
 import { getPlaiceholder } from 'plaiceholder'
+
+// Revalidate pages every hour
+export const revalidate = 3600
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config })
+  const collections = await payload.find({ collection: 'photographies-collection' })
+
+  return collections.docs.map((collection) => ({
+    collection: collection.slug,
+  }))
+}
 
 const CollectionPage = async ({
   params,
@@ -93,8 +104,6 @@ const CollectionPage = async ({
     })
   )
 
-  console.log('Photos with blur processed:', photosWithBlur.length)
-
   const uniqueSeries = Array.from(
     new Set(
       photos.docs
@@ -110,10 +119,7 @@ const CollectionPage = async ({
   }
 
   return (
-    <ReactLenis
-      className='flex-1 h-full overflow-y-auto pt-[32px] px-[32px]'
-      options={{ smoothWheel: true, autoRaf: true }}
-    >
+    <div>
       <ScrollRestoration />
       <main>
         <div className='flex flex-col lg:flex-row gap-10 items-center mb-[25px]'>
@@ -135,12 +141,11 @@ const CollectionPage = async ({
         </div>
         <div className='border-b border-theme-black' />
         <MasonryGrid
-          // @ts-ignore
           photos={photosWithBlur}
           collection={collection?.toLowerCase()}
         />
       </main>
-    </ReactLenis>
+    </div>
   )
 }
 

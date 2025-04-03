@@ -6,7 +6,6 @@ import { getPlaiceholder } from 'plaiceholder'
 
 const Home = async () => {
   const payload = await getPayload({ config })
-  // For the home page we fetch all pictures
   const photos = await payload.find({
     collection: 'photography',
     limit: -1,
@@ -40,10 +39,7 @@ const Home = async () => {
         const buffer = Buffer.from(arrayBuffer)
         
         const { base64 } = await getPlaiceholder(buffer, { size: 10 })
-        
-        console.log('Successfully generated blur data for:', url)
-        console.log(base64)
-        
+              
         return {
           ...photo,
           picture: {
