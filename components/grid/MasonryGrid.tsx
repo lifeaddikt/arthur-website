@@ -65,8 +65,8 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
               <Image
                 className='dark:invert'
                 draggable={false}
-                priority={index < 3}
-                loading={index < 3 ? 'eager' : 'lazy'}
+                priority={index < 9}
+                loading={index < 9 ? 'eager' : 'lazy'}
                 src={picture.url}
                 alt={picture.alt || 'Photo'}
                 width={width}
@@ -75,8 +75,8 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
                 placeholder='blur'
                 style={{ viewTransitionName: `photo-${id}` }}
                 blurDataURL={picture.blurDataURL || undefined}
-                quality={index < 3 ? 85 : 70}
-                fetchPriority={index < 3 ? 'high' : 'auto'}
+                quality={75}
+                fetchPriority={index < 9 ? 'high' : 'auto'}
               />
             </Link>
           </div>

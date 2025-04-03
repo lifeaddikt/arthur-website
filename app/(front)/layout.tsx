@@ -24,14 +24,8 @@ export const metadata: Metadata = {
   title: 'Arthur Paumier | Portfolio',
   description: 'Photographies portfolio',
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://arthur-website-rho.vercel.app'),
-  other: {
-    // Add other metadata to help with bfcache
-    'cache-control': 'public, max-age=3600, s-maxage=3600',
-    'X-Content-Type-Options': 'nosniff',
-  },
 }
 
-// Add bfcache-friendly headers
 export const headers = {
   'Cache-Control': 'public, max-age=3600, s-maxage=3600',
   'X-Content-Type-Options': 'nosniff',
