@@ -6,6 +6,7 @@ import { Photography } from '@/payload-types'
 import { Link } from 'next-view-transitions'
 
 const ClientImage = ({ photo, collection }: { photo: Photography, collection: string }) => {
+  console.log('photo', photo)
   const [imageLoaded, setImageLoaded] = useState(false)
   const imageRef = useRef<HTMLImageElement>(null)
   const [imagePosition, setImagePosition] = useState({
@@ -70,6 +71,7 @@ const ClientImage = ({ photo, collection }: { photo: Photography, collection: st
           alt={imageAlt}
           fill
           className='object-contain max-w-fit max-h-fit dark:invert'
+          loading='eager'
           priority
           style={{
             top: 'unset',

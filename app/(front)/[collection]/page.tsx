@@ -7,43 +7,28 @@ import { notFound, redirect } from 'next/navigation'
 import ScrollRestoration from '@/hooks/ScrollRestoration'
 import { generateBlurPlaceholder } from '@/utils/image'
 import { ReactLenis } from 'lenis/react'
+import { cache } from 'react'
 
 // Revalidate pages every hour
 export const revalidate = 3600
 
-export async function generateStaticParams() {
+// Cache data fetches across requests
+const getCollection = cache(async (slug: string) => {
   const payload = await getPayload({ config })
-  const collections = await payload.find({ collection: 'photographies-collection' })
-
-  return collections.docs.map((collection) => ({
-    collection: collection.slug,
-  }))
-}
-
-const CollectionPage = async ({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ collection: string }>
-  searchParams: Promise<{ activeSerie: string; scrollY?: string }>
-}) => {
-  const { collection } = await params
-  const { activeSerie } = await searchParams
-  const payload = await getPayload({ config })
-
-  const collectionData = await payload.find({
+  
+  return payload.find({
     collection: 'photographies-collection',
     where: {
-      slug: { equals: collection.toLowerCase() },
+      slug: { equals: slug.toLowerCase() },
     },
     limit: 1,
   })
+})
 
-  if (!collectionData.docs.length) {
-    notFound()
-  }
-
-  const photos = await payload.find({
+const getPhotos = cache(async (collection: string, activeSerie?: string) => {
+  const payload = await getPayload({ config })
+  
+  return payload.find({
     collection: 'photography',
     where: {
       and: [
@@ -62,6 +47,42 @@ const CollectionPage = async ({
     depth: 2,
     pagination: false,
   })
+})
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config })
+  const collections = await payload.find({ 
+    collection: 'photographies-collection'
+  })
+
+  return collections.docs.map((collection) => ({
+    collection: collection.slug,
+  }))
+}
+
+const CollectionPage = async ({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ collection: string }>
+  searchParams: Promise<{ activeSerie: string; scrollY?: string }>
+}) => {
+  const { collection } = await params
+  const { activeSerie } = await searchParams
+  
+  // Use cached data fetching functions
+  const collectionData = await getCollection(collection)
+  
+  if (!collectionData.docs.length) {
+    notFound()
+  }
+
+  // Use cached data fetching function
+  const photos = await getPhotos(collection, activeSerie)
+
+  if (!photos.docs.length && activeSerie) {
+    redirect(`/${collection}`)
+  }
 
   const photosWithBlur = await Promise.all(
     photos.docs.map(async (photo) => {
@@ -95,10 +116,6 @@ const CollectionPage = async ({
         )
     )
   )
-
-  if (!photos.docs.length && activeSerie) {
-    redirect(`/${collection}`)
-  }
 
   return (
     <ReactLenis
