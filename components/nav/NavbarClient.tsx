@@ -49,7 +49,7 @@ const NavbarClient = ({
 
   return (
     <nav
-      className={`hidden relative lg:flex flex-col gap-10 border-r transition-all ease-in-out duration-250 ${isOpen ? 'basis-[18%] max-w-[275px] pt-10 pb-4 pl-8 ' : 'basis-[5%] max-w-[60px] items-center py-4'}`}>
+      className={`hidden bg-white dark:bg-black z-10 relative lg:flex flex-col gap-10 border-r transition-all ease-in-out duration-250 ${isOpen ? 'basis-[18%] max-w-[275px] pt-10 pb-4 pl-8 ' : 'basis-[5%] max-w-[60px] items-center py-4'}`}>
       {!isOpen && (
         <>
           <button

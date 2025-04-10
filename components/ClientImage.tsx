@@ -55,7 +55,7 @@ const ClientImage = ({
               : undefined
           }
         />
-        <div className='hidden md:flex absolute -top-20 left-0 right-0 justify-between items-center px-6 w-[85%] mx-auto'>
+        <div className='hidden md:flex absolute -top-14 left-0 right-0 justify-between items-center mx-auto'>
           <p className='uppercase text-sm'>{`${photo.place} - ${photo.date}`}</p>
           <Link
             href={`/${collection}?lastPictureSeen=${photo.id}`}

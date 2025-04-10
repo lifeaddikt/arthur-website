@@ -50,19 +50,6 @@ const RootLayout = ({
             </div>
           </ThemeProvider>
           <SpeedInsights />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                // Support back/forward cache
-                window.addEventListener('pageshow', (event) => {
-                  if (event.persisted) {
-                    // Page was restored from bfcache
-                    document.dispatchEvent(new CustomEvent('bfcache:restore'));
-                  }
-                });
-              `,
-            }}
-          />
         </body>
       </html>
     </ViewTransitions>

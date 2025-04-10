@@ -1,14 +1,47 @@
-import React from 'react'
+'use client'
+
+import { motion } from 'framer-motion'
+import Masonry from 'react-masonry-css'
 
 const Loading = () => {
+  const breakpointColumns = {
+    default: 3,
+    1024: 2,
+    768: 1,
+  }
+
   return (
-    <div className="flex-1 h-full flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4">
-        <div className="h-10 w-10 rounded-full border-4 border-theme-black border-t-transparent animate-spin"></div>
-        <p className="text-theme-black font-medium">Loading...</p>
-      </div>
+    <div className='flex-1 h-full overflow-y-auto px-[32px] pt-[32px]'>
+      {/* Title Skeleton */}
+      <motion.div 
+        className='h-12 md:w-[400px] bg-gray-200 mb-[25px] animate-pulse'
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+      />
+      
+      {/* Border */}
+      <div className='border-b border-theme-black' />
+      
+      {/* Masonry Grid Skeleton */}
+      <Masonry
+        breakpointCols={breakpointColumns}
+        className='my-masonry-grid mt-8'
+        columnClassName='my-masonry-grid_column'
+      >
+        {[...Array(9)].map((_, index) => (
+          <motion.div
+            key={index}
+            className='mb-4 bg-gray-200 animate-pulse'
+            style={{ aspectRatio: '3/4' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+        ))}
+      </Masonry>
     </div>
   )
 }
 
-export default Loading 
+export default Loading

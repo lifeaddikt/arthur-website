@@ -128,7 +128,7 @@ const PicturePage = async ({
   }
 
   return (
-    <main className='flex-1 h-[100vh] overflow-hidden flex flex-col justify-center md:justify-between items-center pt-8 px-8 md:pt-16 md:px-16'>
+    <main className='flex-1 h-[90vh] md:h-[100vh] overflow-hidden flex flex-col justify-center md:justify-between items-center pt-8 px-8 md:pt-16 md:px-16'>
       <ClientImage photo={photoWithBlur} collection={collection} />
       <PicturePageNav
         prevPhoto={prevPhoto.docs[0] || null}
