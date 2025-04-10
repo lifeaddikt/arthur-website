@@ -9,10 +9,14 @@ const Navbar = async () => {
     collection: 'photographies-collection',
   })
 
+  const filteredCollections = collections?.docs?.filter(
+    (collection) => collection.photos?.docs && collection.photos.docs.length > 0
+  )
+
   return (
     <>
-      <NavbarClient collections={collections?.docs || []} />
-      <NavbarClientMobile collections={collections?.docs || []} />
+      <NavbarClient collections={filteredCollections || []} />
+      <NavbarClientMobile collections={filteredCollections || []} />
     </>
   )
 }

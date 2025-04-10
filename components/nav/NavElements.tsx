@@ -3,7 +3,7 @@ import Instagram from '../icons/Instagram'
 import ThemeToggle from '../ThemeToggle'
 
 export const Logo = () => (
-  <Link href='/' className='text-4xl font-extrabold uppercase'>
+  <Link href='/' className='text-4xl font-bold uppercase'>
     Arthur <br /> Paumier
   </Link>
 )

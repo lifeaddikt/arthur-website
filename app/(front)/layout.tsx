@@ -1,29 +1,25 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import Navbar from '@/components/nav/Navbar'
 import { ThemeProvider } from 'next-themes'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ViewTransitions } from 'next-view-transitions'
 import './globals.css'
 
-// Preload essential fonts
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-  display: 'swap',
-  preload: true,
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Arthur Paumier | Portfolio',
+  title: 'Arthur Paumier | Photographies',
   description: 'Photographies portfolio',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://arthur-website-rho.vercel.app'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_URL || 'https://arthur-website-rho.vercel.app'
+  ),
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export const headers = {
@@ -40,10 +36,14 @@ const RootLayout = ({
     <ViewTransitions>
       <html lang='en' suppressHydrationWarning>
         <head>
-          <meta name="bfcache-detected" content="true" />
+          <meta name='bfcache-detected' content='true' />
         </head>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <ThemeProvider attribute='class' defaultTheme='light' enableSystem={false}>
+        <body className={`${inter.className} antialiased`}>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='light'
+            enableSystem={false}
+          >
             <div className='flex w-[100vw] h-[100vh] overflow-hidden'>
               <Navbar />
               {children}

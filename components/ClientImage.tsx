@@ -41,6 +41,7 @@ const ClientImage = ({
           className='object-contain max-w-fit max-h-fit dark:invert'
           loading='eager'
           priority
+          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 75vw, 70vw"
           style={{
             top: 'unset',
             left: 'unset',

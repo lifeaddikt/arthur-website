@@ -42,7 +42,7 @@ const Home = async () => {
 
   return (
     <ReactLenis className='flex-1 h-full overflow-y-auto px-[32px] pt-[32px]' options={{ smoothWheel: true, autoRaf: true }}>
-      <h1 className='text-4xl capitalize font-black mb-[25px]'>Home</h1>
+      <h1 className='text-4xl capitalize font-bold mb-[25px]'>Home</h1>
       <div className='border-b border-theme-black' />
       <MasonryGrid photos={photosWithBlur} collection='home' />
     </ReactLenis>

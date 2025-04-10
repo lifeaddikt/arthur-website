@@ -126,7 +126,7 @@ const CollectionPage = async ({
       <ScrollRestoration />
       <main>
         <div className='flex flex-col lg:flex-row gap-10 items-center mb-[25px]'>
-          <h1 className='text-4xl capitalize font-black'>
+          <h1 className='text-4xl capitalize font-bold'>
             {collectionData?.docs[0]?.name}
           </h1>
           <div className='flex gap-3 flex-wrap'>
