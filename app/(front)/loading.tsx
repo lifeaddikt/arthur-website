@@ -12,7 +12,6 @@ const Loading = () => {
 
   return (
     <div className='flex-1 h-full overflow-y-auto px-[32px] pt-[32px]'>
-      {/* Title Skeleton */}
       <motion.div 
         className='h-12 md:w-[400px] bg-gray-200 mb-[25px] animate-pulse'
         initial={{ opacity: 0 }}
@@ -20,10 +19,8 @@ const Loading = () => {
         transition={{ duration: 0.3 }}
       />
       
-      {/* Border */}
       <div className='border-b border-theme-black' />
       
-      {/* Masonry Grid Skeleton */}
       <Masonry
         breakpointCols={breakpointColumns}
         className='my-masonry-grid mt-8'

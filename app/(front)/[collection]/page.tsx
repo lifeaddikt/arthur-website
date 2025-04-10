@@ -9,10 +9,8 @@ import { generateBlurPlaceholder } from '@/utils/image'
 import { ReactLenis } from 'lenis/react'
 import { cache } from 'react'
 
-// Revalidate pages every hour
 export const revalidate = 3600
 
-// Cache data fetches across requests
 const getCollection = cache(async (slug: string) => {
   const payload = await getPayload({ config })
   
@@ -70,14 +68,12 @@ const CollectionPage = async ({
   const { collection } = await params
   const { activeSerie } = await searchParams
   
-  // Use cached data fetching functions
   const collectionData = await getCollection(collection)
   
   if (!collectionData.docs.length) {
     notFound()
   }
 
-  // Use cached data fetching function
   const photos = await getPhotos(collection, activeSerie)
 
   if (!photos.docs.length && activeSerie) {
@@ -89,7 +85,6 @@ const CollectionPage = async ({
       if (!photo.picture || typeof photo.picture === 'number' || !photo.picture.url) return photo
 
       try {
-        // Generate blur placeholder with smaller size for faster processing
         const base64 = await generateBlurPlaceholder(photo.picture.url)
         if (base64) {
           return {

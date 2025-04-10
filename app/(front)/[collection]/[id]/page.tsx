@@ -6,10 +6,8 @@ import { notFound } from 'next/navigation'
 import { generateBlurPlaceholder } from '@/utils/image'
 import { cache } from 'react'
 
-// Revalidate pages every hour
 export const revalidate = 3600
 
-// Cache data fetching functions
 const getPhotoById = cache(async (id: string) => {
   const payload = await getPayload({ config })
 
@@ -33,7 +31,7 @@ const getPrevPhoto = cache(async (collection: string, createdAt: string) => {
       'collections.slug': { equals: collection.toLowerCase() },
       createdAt: { greater_than: createdAt },
     },
-    sort: 'createdAt', // Ascending order for newer photos
+    sort: 'createdAt',
     limit: 1,
   })
 })
@@ -47,7 +45,7 @@ const getNextPhoto = cache(async (collection: string, createdAt: string) => {
       'collections.slug': { equals: collection.toLowerCase() },
       createdAt: { less_than: createdAt },
     },
-    sort: '-createdAt', // Descending order for older photos
+    sort: '-createdAt',
     limit: 1,
   })
 })
@@ -55,13 +53,11 @@ const getNextPhoto = cache(async (collection: string, createdAt: string) => {
 export async function generateStaticParams() {
   const payload = await getPayload({ config })
 
-  // Get all collections
   const collections = await payload.find({
     collection: 'photographies-collection',
     pagination: false,
   })
 
-  // For each collection, get all photos
   const params = []
 
   for (const collection of collections.docs) {
@@ -73,7 +69,6 @@ export async function generateStaticParams() {
       pagination: false,
     })
 
-    // Create params for each photo
     const collectionPhotos = photos.docs.map((photo) => ({
       collection: collection.slug,
       id: photo.id.toString(),
@@ -92,23 +87,17 @@ const PicturePage = async ({
 }) => {
   const { id, collection } = await params
 
-  // Get current photo using cached function
   const currentPhoto = await getPhotoById(id)
 
   if (!currentPhoto) {
     return notFound()
   }
 
-  // Get adjacent photos in parallel using cached functions
   const [prevPhoto, nextPhoto] = await Promise.all([
-    // Previous photo (newer photos)
     getPrevPhoto(collection, currentPhoto.createdAt),
-
-    // Next photo (older photos)
     getNextPhoto(collection, currentPhoto.createdAt),
   ])
 
-  // Generate blur placeholder if needed
   let photoWithBlur = currentPhoto
   if (typeof currentPhoto.picture !== 'number' && currentPhoto.picture?.url) {
     try {
