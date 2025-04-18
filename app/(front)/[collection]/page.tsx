@@ -1,6 +1,4 @@
 import MasonryGrid from '@/components/grid/MasonryGrid'
-import { getPayload } from 'payload'
-import config from '@payload-config'
 import Badge from '@/components/Badge'
 import { Series } from '@/payload-types'
 import { notFound, redirect } from 'next/navigation'
@@ -8,11 +6,12 @@ import ScrollRestoration from '@/hooks/ScrollRestoration'
 import { generateBlurPlaceholder } from '@/utils/image'
 import { ReactLenis } from 'lenis/react'
 import { cache } from 'react'
+import { getPayloadClient } from '@/utils/payload'
 
 export const revalidate = 3600
 
 const getCollection = cache(async (slug: string) => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
   
   return payload.find({
     collection: 'photographies-collection',
@@ -24,7 +23,7 @@ const getCollection = cache(async (slug: string) => {
 })
 
 const getPhotos = cache(async (collection: string, activeSerie?: string) => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
   
   return payload.find({
     collection: 'photography',
@@ -48,7 +47,7 @@ const getPhotos = cache(async (collection: string, activeSerie?: string) => {
 })
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
   const collections = await payload.find({ 
     collection: 'photographies-collection'
   })

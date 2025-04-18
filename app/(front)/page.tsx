@@ -1,9 +1,8 @@
 import { redirect } from 'next/navigation'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayloadClient } from '@/utils/payload'
 
 const Home = async () => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
   const collections = await payload.find({
     collection: 'photographies-collection',
   })

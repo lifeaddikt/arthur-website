@@ -1,15 +1,14 @@
-import { getPayload } from 'payload'
-import config from '@payload-config'
 import PicturePageNav from '@/components/nav/PicturePageNav'
 import ClientImage from '@/components/ClientImage'
 import { notFound } from 'next/navigation'
 import { generateBlurPlaceholder } from '@/utils/image'
 import { cache } from 'react'
+import { getPayloadClient } from '@/utils/payload'
 
 export const revalidate = 3600
 
 const getPhotoById = cache(async (id: string) => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   try {
     return await payload.findByID({
@@ -23,7 +22,7 @@ const getPhotoById = cache(async (id: string) => {
 })
 
 const getPrevPhoto = cache(async (collection: string, createdAt: string) => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   return payload.find({
     collection: 'photography',
@@ -37,7 +36,7 @@ const getPrevPhoto = cache(async (collection: string, createdAt: string) => {
 })
 
 const getNextPhoto = cache(async (collection: string, createdAt: string) => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   return payload.find({
     collection: 'photography',
@@ -51,7 +50,7 @@ const getNextPhoto = cache(async (collection: string, createdAt: string) => {
 })
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const collections = await payload.find({
     collection: 'photographies-collection',
