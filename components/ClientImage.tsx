@@ -51,7 +51,7 @@ const ClientImage = ({
           }}
           placeholder={typeof photo?.picture !== 'number' ? 'blur' : undefined}
           blurDataURL={
-            typeof photo?.picture !== 'number'
+            typeof photo?.picture !== 'number' && photo.picture.blurDataURL
               ? photo.picture.blurDataURL
               : undefined
           }

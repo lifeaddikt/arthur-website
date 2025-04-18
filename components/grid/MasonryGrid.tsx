@@ -6,12 +6,6 @@ import { Photography } from '@/payload-types'
 import Image from 'next/image'
 import { Link } from 'next-view-transitions'
 
-declare module '@/payload-types' {
-  interface Media {
-    blurDataURL?: string
-  }
-}
-
 type MasonryGridProps = {
   photos: Photography[]
   collection: string

@@ -1,7 +1,6 @@
 import PicturePageNav from '@/components/nav/PicturePageNav'
 import ClientImage from '@/components/ClientImage'
 import { notFound } from 'next/navigation'
-import { generateBlurPlaceholder } from '@/utils/image'
 import { cache } from 'react'
 import { getPayloadClient } from '@/utils/payload'
 
@@ -97,27 +96,9 @@ const PicturePage = async ({
     getNextPhoto(collection, currentPhoto.createdAt),
   ])
 
-  let photoWithBlur = currentPhoto
-  if (typeof currentPhoto.picture !== 'number' && currentPhoto.picture?.url) {
-    try {
-      const base64 = await generateBlurPlaceholder(currentPhoto.picture.url)
-      if (base64) {
-        photoWithBlur = {
-          ...currentPhoto,
-          picture: {
-            ...currentPhoto.picture,
-            blurDataURL: base64,
-          },
-        }
-      }
-    } catch (error) {
-      console.error('Error generating blur placeholder:', error)
-    }
-  }
-
   return (
     <main className='flex-1 h-[90vh] md:h-[100vh] overflow-hidden flex flex-col justify-center md:justify-between items-center pt-8 px-8 md:pt-16 md:px-16'>
-      <ClientImage photo={photoWithBlur} collection={collection} />
+      <ClientImage photo={currentPhoto} collection={collection} />
       <PicturePageNav
         prevPhoto={prevPhoto.docs[0] || null}
         nextPhoto={nextPhoto.docs[0] || null}

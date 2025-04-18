@@ -3,7 +3,6 @@ import Badge from '@/components/Badge'
 import { Series } from '@/payload-types'
 import { notFound, redirect } from 'next/navigation'
 import ScrollRestoration from '@/hooks/ScrollRestoration'
-import { generateBlurPlaceholder } from '@/utils/image'
 import { ReactLenis } from 'lenis/react'
 import { cache } from 'react'
 import { getPayloadClient } from '@/utils/payload'
@@ -79,29 +78,6 @@ const CollectionPage = async ({
     redirect(`/${collection}`)
   }
 
-  const photosWithBlur = await Promise.all(
-    photos.docs.map(async photo => {
-      if (!photo.picture || typeof photo.picture === 'number' || !photo.picture.url) return photo
-
-      try {
-        const base64 = await generateBlurPlaceholder(photo.picture.url)
-        if (base64) {
-          return {
-            ...photo,
-            picture: {
-              ...photo.picture,
-              blurDataURL: base64,
-            },
-          }
-        }
-        return photo
-      } catch (err) {
-        console.error('Error generating blur data:', err)
-        return photo
-      }
-    })
-  )
-
   const uniqueSeries = Array.from(
     new Set(
       photos.docs
@@ -138,7 +114,7 @@ const CollectionPage = async ({
         </div>
         <div className='border-b border-theme-black' />
         <MasonryGrid
-          photos={photosWithBlur}
+          photos={photos.docs}
           collection={collection?.toLowerCase()}
         />
       </main>

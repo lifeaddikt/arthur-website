@@ -1,4 +1,6 @@
 import type { CollectionConfig } from 'payload'
+import { getPlaiceholder } from 'plaiceholder'
+import sharp from 'sharp'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -11,6 +13,13 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'blurDataURL',
+      type: 'text',
+      admin: {
+        hidden: true,
+      },
+    }
   ],
   upload: {
     adminThumbnail: 'thumbnail',
@@ -35,4 +44,16 @@ export const Media: CollectionConfig = {
       fit: 'inside',
     },
   },
+  hooks: {
+    beforeChange: [
+      async ({ data }) => {
+        if (data.url && typeof data.url === 'string') {
+          const image = await fetch(process.env.NEXT_PUBLIC_URL + data.url)
+          const resizedImage = await sharp(await image.arrayBuffer()).resize(10, 10, { fit: 'cover' }).toBuffer()
+          const { base64 } = await getPlaiceholder(resizedImage)
+          data.blurDataURL = base64
+        }
+      }
+    ]
+  }
 }
