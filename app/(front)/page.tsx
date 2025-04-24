@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { getPayloadClient } from '@/utils/payload'
 import Image from 'next/image'
 
+export const revalidate = 3600
+
 const Home = async () => {
   const payload = await getPayloadClient()
   const collections = await payload.find({
@@ -41,8 +43,8 @@ const Home = async () => {
   )
 
   return (
-    <div className='container mx-auto px-4 py-12'>
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='container mx-auto px-4 py-4 overflow-y-auto'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
         {filteredCollections.map((collection) => {
           const coverPicture = collection.coverPicture as {
             url: string
