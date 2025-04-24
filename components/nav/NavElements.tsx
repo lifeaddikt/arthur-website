@@ -1,10 +1,10 @@
 import Instagram from '../icons/Instagram'
 import ThemeToggle from '../ThemeToggle'
-
+import Link from 'next/link'
 export const Logo = () => (
-  <div className='text-4xl font-bold uppercase'>
+  <Link href='/' className='text-4xl font-bold uppercase'>
     Arthur <br /> Paumier
-  </div>
+  </Link>
 )
 
 export const SocialLinks = () => (
