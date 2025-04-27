@@ -1,14 +1,21 @@
+'use client'
+
 import Close from '@/components/icons/Close'
 import Image from 'next/image'
 import { Photography } from '@/payload-types'
 import { Link } from 'next-view-transitions'
 
+
 const ClientImage = ({
   photo,
   collection,
+  prevPhoto,
+  nextPhoto,
 }: {
   photo: Photography
   collection: string
+  prevPhoto?: Photography | null
+  nextPhoto?: Photography | null
 }) => {
   const imageUrl =
     typeof photo?.picture !== 'number' && photo?.picture.url
@@ -38,10 +45,10 @@ const ClientImage = ({
           src={imageUrl}
           alt={imageAlt}
           fill
-          className='object-contain max-w-fit max-h-fit dark:invert'
+          className='object-contain max-w-fit max-h-fit dark:invert z-10'
           loading='eager'
           priority
-          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 75vw, 70vw"
+          sizes='(max-width: 768px) 90vw, (max-width: 1200px) 75vw, 70vw'
           style={{
             top: 'unset',
             left: 'unset',
@@ -56,6 +63,42 @@ const ClientImage = ({
               : undefined
           }
         />
+
+        {/* Navigation zones - without visible icons */}
+        <div className='absolute inset-0 z-20 flex w-full h-full'>
+          {/* Left zone - Previous */}
+          {prevPhoto ? (
+            <Link 
+              href={`/${collection}/${prevPhoto.id}`}
+              className='w-1/3 h-full cursor-prev'
+            >
+              <div className='h-full'></div>
+            </Link>
+          ) : (
+            <div className='w-1/3 h-full cursor-not-allowed'></div>
+          )}
+          
+          {/* Middle zone - Grid */}
+          <Link 
+            href={`/${collection}?lastPictureSeen=${photo.id}`}
+            className='w-1/3 h-full cursor-grid'
+          >
+            <div className='h-full'></div>
+          </Link>
+          
+          {/* Right zone - Next */}
+          {nextPhoto ? (
+            <Link 
+              href={`/${collection}/${nextPhoto.id}`}
+              className='w-1/3 h-full cursor-next'
+            >
+              <div className='h-full'></div>
+            </Link>
+          ) : (
+            <div className='w-1/3 h-full cursor-not-allowed'></div>
+          )}
+        </div>
+
         <div className='hidden md:flex absolute -top-14 left-0 right-0 justify-between items-center mx-auto'>
           <p className='uppercase text-sm'>{`${photo.place} - ${photo.date}`}</p>
           <Link

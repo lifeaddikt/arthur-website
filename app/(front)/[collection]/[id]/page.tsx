@@ -98,7 +98,12 @@ const PicturePage = async ({
 
   return (
     <main className='flex-1 h-[90vh] md:h-[100vh] overflow-hidden flex flex-col justify-center md:justify-between items-center pt-8 px-8 md:pt-16 md:px-16'>
-      <ClientImage photo={currentPhoto} collection={collection} />
+      <ClientImage 
+        photo={currentPhoto} 
+        collection={collection}
+        prevPhoto={prevPhoto.docs[0] || null}
+        nextPhoto={nextPhoto.docs[0] || null} 
+      />
       <PicturePageNav
         prevPhoto={prevPhoto.docs[0] || null}
         nextPhoto={nextPhoto.docs[0] || null}
