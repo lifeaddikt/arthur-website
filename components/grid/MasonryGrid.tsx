@@ -68,7 +68,12 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
                 height={height}
                 sizes='(max-width: 640px) 95vw, (max-width: 1024px) 45vw, 30vw'
                 placeholder='blur'
-                style={{ viewTransitionName: `photo-${id}` }}
+                style={{ 
+                  viewTransitionName: `photo-${id}`,
+                  transform: 'translateZ(0)',
+                  willChange: 'transform',
+                  contain: 'layout'
+                }}
                 blurDataURL={picture.blurDataURL || undefined}
                 quality={75}
                 fetchPriority={index < 9 ? 'high' : 'auto'}

@@ -55,6 +55,10 @@ const ClientImage = ({
             bottom: 'unset',
             right: 'unset',
             viewTransitionName: `photo-${photo.id}`,
+            transform: 'translateZ(0)',
+            willChange: 'transform',
+            contain: 'layout',
+            opacity: 1, // Force opacity to 1 during transitions
           }}
           placeholder={typeof photo?.picture !== 'number' ? 'blur' : undefined}
           blurDataURL={
