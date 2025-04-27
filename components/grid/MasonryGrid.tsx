@@ -5,13 +5,14 @@ import Masonry from 'react-masonry-css'
 import { Photography } from '@/payload-types'
 import Image from 'next/image'
 import { Link } from 'next-view-transitions'
+import { motion } from 'framer-motion'
 
 type MasonryGridProps = {
   photos: Photography[]
   collection: string
 }
 
-// Helper function to determine appropriate image size
+
 const getOptimalImageDimensions = (
   originalWidth: number,
   originalHeight: number
@@ -54,7 +55,7 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
         )
 
         return (
-          <div key={id} data-picture-id={id}>
+          <motion.div key={id} data-picture-id={id} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.250 }} viewport={{ once: true, amount: 0 }}>
             <Link href={`/${collection}/${id}`} prefetch={false}>
               <Image
                 className='dark:invert'
@@ -73,7 +74,7 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
                 fetchPriority={index < 9 ? 'high' : 'auto'}
               />
             </Link>
-          </div>
+          </motion.div>
         )
       })}
     </Masonry>

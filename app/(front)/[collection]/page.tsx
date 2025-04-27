@@ -6,6 +6,7 @@ import ScrollRestoration from '@/hooks/ScrollRestoration'
 import { ReactLenis } from 'lenis/react'
 import { cache } from 'react'
 import { getPayloadClient } from '@/utils/payload'
+import CollectionPageSkeleton from '@/components/skeleton/CollectionPageSkeleton'
 
 export const revalidate = 3600
 
@@ -87,6 +88,10 @@ const CollectionPage = async ({
         )
     )
   )
+
+  if (!photos.docs.length) {
+    return <CollectionPageSkeleton />
+  }
 
   return (
     <ReactLenis
