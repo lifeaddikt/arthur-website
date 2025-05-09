@@ -40,7 +40,7 @@ const Home = async () => {
   }
 
   return (
-    <div className='py-[32px] px-[32px] overflow-y-auto'>
+    <div className='py-[32px] px-[32px] overflow-y-auto w-full'>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
         {filteredCollections.map((collection, index) => {
           return (
