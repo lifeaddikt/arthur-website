@@ -52,7 +52,7 @@ const CollectionCard = ({ collection, index }: CollectionCardProps) => {
         )}
         <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4'>
           <h2 className='text-white text-xl font-medium'>{collection.name}</h2>
-          <p className='text-white/80 text-sm mt-1'>
+          <p className='text-white/80 text-[15px] md:text-sm mt-1'>
             {collection.photosCount} photo
             {collection.photosCount !== 1 ? 's' : ''}
           </p>

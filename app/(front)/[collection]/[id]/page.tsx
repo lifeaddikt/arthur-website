@@ -6,46 +6,47 @@ import { getPayloadClient } from '@/utils/payload'
 
 export const revalidate = 3600
 
-const getPhotoById = cache(async (id: string) => {
+const getPhotoWithNavigation = cache(async (id: string, collection: string) => {
   const payload = await getPayloadClient()
 
   try {
-    return await payload.findByID({
+    const currentPhoto = await payload.findByID({
       collection: 'photography',
       id: id,
     })
+
+    if (!currentPhoto) return null
+
+    const [prevPhoto, nextPhoto] = await Promise.all([
+      payload.find({
+        collection: 'photography',
+        where: {
+          'collections.slug': { equals: collection.toLowerCase() },
+          createdAt: { greater_than: currentPhoto.createdAt },
+        },
+        sort: 'createdAt',
+        limit: 1,
+      }),
+      payload.find({
+        collection: 'photography',
+        where: {
+          'collections.slug': { equals: collection.toLowerCase() },
+          createdAt: { less_than: currentPhoto.createdAt },
+        },
+        sort: '-createdAt',
+        limit: 1,
+      })
+    ])
+
+    return {
+      currentPhoto,
+      prevPhoto: prevPhoto.docs[0] || null,
+      nextPhoto: nextPhoto.docs[0] || null
+    }
   } catch (error) {
     console.error(`Error fetching photo with id ${id}:`, error)
     return null
   }
-})
-
-const getPrevPhoto = cache(async (collection: string, createdAt: string) => {
-  const payload = await getPayloadClient()
-
-  return payload.find({
-    collection: 'photography',
-    where: {
-      'collections.slug': { equals: collection.toLowerCase() },
-      createdAt: { greater_than: createdAt },
-    },
-    sort: 'createdAt',
-    limit: 1,
-  })
-})
-
-const getNextPhoto = cache(async (collection: string, createdAt: string) => {
-  const payload = await getPayloadClient()
-
-  return payload.find({
-    collection: 'photography',
-    where: {
-      'collections.slug': { equals: collection.toLowerCase() },
-      createdAt: { less_than: createdAt },
-    },
-    sort: '-createdAt',
-    limit: 1,
-  })
 })
 
 export async function generateStaticParams() {
@@ -85,28 +86,25 @@ const PicturePage = async ({
 }) => {
   const { id, collection } = await params
 
-  const currentPhoto = await getPhotoById(id)
+  const result = await getPhotoWithNavigation(id, collection)
 
-  if (!currentPhoto) {
+  if (!result) {
     return notFound()
   }
 
-  const [prevPhoto, nextPhoto] = await Promise.all([
-    getPrevPhoto(collection, currentPhoto.createdAt),
-    getNextPhoto(collection, currentPhoto.createdAt),
-  ])
+  const { currentPhoto, prevPhoto, nextPhoto } = result
 
   return (
     <main className='flex-1 h-[90vh] md:h-[100vh] overflow-hidden flex flex-col justify-center md:justify-between items-center pt-8 px-8 md:pt-16 md:px-16'>
       <ClientImage 
         photo={currentPhoto} 
         collection={collection}
-        prevPhoto={prevPhoto.docs[0] || null}
-        nextPhoto={nextPhoto.docs[0] || null} 
+        prevPhoto={prevPhoto}
+        nextPhoto={nextPhoto} 
       />
       <PicturePageNav
-        prevPhoto={prevPhoto.docs[0] || null}
-        nextPhoto={nextPhoto.docs[0] || null}
+        prevPhoto={prevPhoto}
+        nextPhoto={nextPhoto}
         collection={collection}
       />
     </main>
