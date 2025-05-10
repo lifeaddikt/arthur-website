@@ -13,11 +13,32 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'Arthur Paumier | Photographies',
-  description: "Arthur Paumier's photography portfolio — a personal collection of visual explorations through architecture, textures, landscapes, and natural forms.",
+  description:
+    'Arthur Paumier\'s photography portfolio — a personal collection of visual explorations through architecture, textures, landscapes, and natural forms.',
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_URL || 'https://arthur-website-rho.vercel.app'
   ),
-  keywords: ['photography', 'portfolio', 'Arthur Paumier', 'photographs', 'photographe', 'art', 'visual arts', 'architecture', 'textures', 'landscapes', 'natural forms', 'photographie', 'french', 'rennes', 'france', 'design', 'matière', 'noir et blanc', 'black and white'],
+  keywords: [
+    'photography',
+    'portfolio',
+    'Arthur Paumier',
+    'photographs',
+    'photographe',
+    'art',
+    'visual arts',
+    'architecture',
+    'textures',
+    'landscapes',
+    'natural forms',
+    'photographie',
+    'french',
+    'rennes',
+    'france',
+    'design',
+    'matière',
+    'noir et blanc',
+    'black and white',
+  ],
   authors: [{ name: 'Arthur Paumier' }],
   creator: 'Arthur Paumier',
   publisher: 'Arthur Paumier',
@@ -31,13 +52,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: process.env.NEXT_PUBLIC_URL || 'https://arthur-website-rho.vercel.app',
     title: 'Arthur Paumier | Photographies',
-    description: "Arthur Paumier's photography portfolio — a personal collection of visual explorations through architecture, textures, landscapes, and natural forms.",
+    description:
+      'Arthur Paumier\'s photography portfolio — a personal collection of visual explorations through architecture, textures, landscapes, and natural forms.',
     siteName: 'Arthur Paumier Photography',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Arthur Paumier | Photographies',
-    description: "Arthur Paumier's photography portfolio — a personal collection of visual explorations through architecture, textures, landscapes, and natural forms.",
+    description:
+      'Arthur Paumier\'s photography portfolio — a personal collection of visual explorations through architecture, textures, landscapes, and natural forms.',
     creator: '@arthurpaumier',
   },
   icons: {
@@ -67,7 +90,8 @@ const RootLayout = ({
     '@type': 'WebSite',
     name: 'Arthur Paumier Photography',
     url: process.env.NEXT_PUBLIC_URL || 'https://arthur-website-rho.vercel.app',
-    description: "Arthur Paumier's photography portfolio — a personal collection of visual explorations through architecture, textures, landscapes, and natural forms.",
+    description:
+      'Arthur Paumier\'s photography portfolio — a personal collection of visual explorations through architecture, textures, landscapes, and natural forms.',
     author: {
       '@type': 'Person',
       name: 'Arthur Paumier',
@@ -80,7 +104,7 @@ const RootLayout = ({
         <head>
           <meta name='bfcache-detected' content='true' />
           <script
-            type="application/ld+json"
+            type='application/ld+json'
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
         </head>
