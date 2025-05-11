@@ -184,6 +184,8 @@ export interface PhotographiesCollection {
     docs?: (number | Photography)[] | null;
     hasNextPage?: boolean | null;
   } | null;
+  desktopPhoto: number | Media;
+  mobilePhoto: number | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -340,6 +342,8 @@ export interface PhotographiesCollectionSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   photos?: T;
+  desktopPhoto?: T;
+  mobilePhoto?: T;
   updatedAt?: T;
   createdAt?: T;
 }

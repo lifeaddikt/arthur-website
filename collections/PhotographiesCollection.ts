@@ -27,7 +27,21 @@ export const PhotographiesCollection: CollectionConfig = {
       type: 'join',
       collection: 'photography',
       on: 'collections',
-      hasMany: true, // Une collection peut contenir plusieurs photos
+      hasMany: true,
+    },
+    {
+      name: 'desktopPhoto',
+      label: 'Photo principale (desktop)',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+    },
+    {
+      name: 'mobilePhoto',
+      label: 'Photo principale (mobile)',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
     },
   ],
   hooks: {
