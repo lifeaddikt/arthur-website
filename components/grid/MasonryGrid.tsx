@@ -12,12 +12,11 @@ type MasonryGridProps = {
   collection: string
 }
 
-
 const getOptimalImageDimensions = (
   originalWidth: number,
   originalHeight: number
 ) => {
-  const maxWidth = 800 
+  const maxWidth = 800
 
   if (!originalWidth || !originalHeight) {
     return { width: 640, height: 480 }
@@ -55,7 +54,14 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
         )
 
         return (
-          <motion.div key={id} data-picture-id={id} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.250 }} viewport={{ once: true, amount: 0 }}>
+          <motion.div
+            key={id}
+            data-picture-id={id}
+            initial={{ opacity: 1, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
+            viewport={{ once: true, amount: 0 }}
+          >
             <Link href={`/${collection}/${id}`} prefetch={false}>
               <Image
                 className='dark:invert'
@@ -68,13 +74,13 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
                 height={height}
                 sizes='(max-width: 640px) 95vw, (max-width: 1024px) 45vw, 30vw'
                 placeholder='blur'
-                style={{ 
+                style={{
                   viewTransitionName: `photo-${id}`,
                   transform: 'translateZ(0)',
                   willChange: 'transform',
-                  contain: 'layout'
+                  contain: 'layout',
                 }}
-                blurDataURL={picture.blurDataURL || undefined}
+                blurDataURL={picture.blurDataURL || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDMyMCAxODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48L3N2Zz4='}
                 quality={75}
                 fetchPriority={index < 9 ? 'high' : 'auto'}
               />

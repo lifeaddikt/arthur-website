@@ -64,7 +64,7 @@ const ClientImage = ({
           blurDataURL={
             typeof photo?.picture !== 'number' && photo.picture.blurDataURL
               ? photo.picture.blurDataURL
-              : undefined
+              : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDMyMCAxODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48L3N2Zz4='
           }
         />
 

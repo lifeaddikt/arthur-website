@@ -46,14 +46,12 @@ export const Media: CollectionConfig = {
   },
   hooks: {
     beforeChange: [
-      async ({ data }) => {
-        if (data.url && typeof data.url === 'string') {
-          const image = await fetch(process.env.NEXT_PUBLIC_URL + data.url)
-          const resizedImage = await sharp(await image.arrayBuffer()).resize(10, 10, { fit: 'cover' }).toBuffer()
-          const { base64 } = await getPlaiceholder(resizedImage)
-          data.blurDataURL = base64
+      async ({ data, req, operation }) => {
+        if ((operation === 'create' || operation === 'update') && req.file) {
+          const base64 = await getPlaiceholder(req.file.data)
+          data.blurDataURL = base64.base64
         }
-      }
-    ]
+      },
+    ],
   }
 }
