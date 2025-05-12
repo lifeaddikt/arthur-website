@@ -40,6 +40,7 @@ const ClientImage = ({
       </div>
       <div className='w-full h-[65%] md:h-[90%] relative flex items-center justify-center'>
         <Image
+          quality={100}
           draggable={false}
           id={photo.id.toString()}
           src={imageUrl}

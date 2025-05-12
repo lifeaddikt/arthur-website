@@ -50,6 +50,7 @@ const CollectionCard = ({ collection, index }: CollectionCardProps) => {
               desktopPhoto.blurDataURL ||
               'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDMyMCAxODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48L3N2Zz4='
             }
+            quality={100}
           />
           <Image
             id={mobilePhoto.id.toString()}
@@ -65,6 +66,7 @@ const CollectionCard = ({ collection, index }: CollectionCardProps) => {
               mobilePhoto.blurDataURL ||
               'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDMyMCAxODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48L3N2Zz4='
             }
+            quality={100}
           />
         </div>
         <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4'>
