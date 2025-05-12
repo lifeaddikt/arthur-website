@@ -6,6 +6,7 @@ import { Photography } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 type MasonryGridProps = {
   photos: Photography[]
@@ -39,6 +40,8 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
     768: 1,
   }
 
+  const isMobile = useMediaQuery('(max-width: 768px)')
+
   return (
     <Masonry
       breakpointCols={breakpointColumns}
@@ -53,6 +56,8 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
           Number(picture.height) || 0
         )
 
+        const isPriority = isMobile ? index === 0 : index < 6
+
         return (
           <motion.div
             key={id}
@@ -66,8 +71,8 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
               <Image
                 className={collection === 'film' ? 'dark:invert' : ''}
                 draggable={false}
-                priority={index < 9}
-                loading={index < 9 ? 'eager' : 'lazy'}
+                priority={isPriority}
+                loading={isPriority ? 'eager' : 'lazy'}
                 src={picture.url}
                 alt={picture.alt || 'Photo'}
                 width={width}
@@ -84,7 +89,7 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
                   picture.blurDataURL ||
                   'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDMyMCAxODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48L3N2Zz4='
                 }
-                fetchPriority={index < 9 ? 'high' : 'auto'}
+                fetchPriority={isPriority ? 'high' : 'auto'}
               />
             </Link>
           </motion.div>
