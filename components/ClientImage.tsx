@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { Photography } from '@/payload-types'
 import { Link } from 'next-view-transitions'
 
-
 const ClientImage = ({
   photo,
   collection,
@@ -46,7 +45,7 @@ const ClientImage = ({
           src={imageUrl}
           alt={imageAlt}
           fill
-          className='object-contain max-w-fit max-h-fit z-10'
+          className={`object-contain max-w-fit max-h-fit z-10 animate-fade-in ${collection === 'film' ? 'dark:invert' : ''}`}
           loading='eager'
           priority
           sizes='(max-width: 768px) 90vw, (max-width: 1200px) 75vw, 70vw'
@@ -59,7 +58,6 @@ const ClientImage = ({
             transform: 'translateZ(0)',
             willChange: 'transform',
             contain: 'layout',
-            opacity: 1, // Force opacity to 1 during transitions
           }}
           placeholder={typeof photo?.picture !== 'number' ? 'blur' : undefined}
           blurDataURL={

@@ -4,7 +4,7 @@ import { memo } from 'react'
 import Masonry from 'react-masonry-css'
 import { Photography } from '@/payload-types'
 import Image from 'next/image'
-import { Link } from 'next-view-transitions'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 type MasonryGridProps = {

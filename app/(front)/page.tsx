@@ -1,5 +1,4 @@
 import { getPayloadClient } from '@/utils/payload'
-import HomeSkeleton from '@/components/skeleton/HomeSkeleton'
 import CollectionCard from '@/components/cards/CollectionCard'
 
 export const revalidate = 3600
@@ -27,10 +26,6 @@ const Home = async () => {
       }
     })
   )
-
-  if (!collectionsWithPhotos.length) {
-    return <HomeSkeleton />
-  }
 
   return (
     <div className='py-[32px] px-[32px] overflow-y-auto w-full'>

@@ -12,7 +12,7 @@ const CollectionPageSkeleton = () => {
   return (
     <div className='flex-1 h-full overflow-y-auto px-[32px] pt-[32px]'>
       <motion.div
-        className='h-12 md:w-[400px] bg-gray-200 mb-[25px] animate-pulse'
+        className='h-12 md:w-[400px] bg-gray-300/50 bg-gradient-to-t from-gray-300/50 to-gray-300/30 mb-[25px] animate-pulse'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
@@ -28,7 +28,7 @@ const CollectionPageSkeleton = () => {
         {[...Array(9)].map((_, index) => (
           <motion.div
             key={index}
-            className='mb-4 bg-gray-200 animate-pulse'
+            className='mb-4 bg-gray-300/50 bg-gradient-to-t from-gray-300/50 to-gray-300/30 animate-pulse'
             style={{ aspectRatio: '3/4' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
