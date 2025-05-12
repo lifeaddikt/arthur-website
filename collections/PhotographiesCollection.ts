@@ -18,7 +18,7 @@ export const PhotographiesCollection: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        readOnly: true, 
+        readOnly: true,
       },
     },
     {

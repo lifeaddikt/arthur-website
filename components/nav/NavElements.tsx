@@ -2,9 +2,16 @@ import Instagram from '../icons/Instagram'
 import ThemeToggle from '../ThemeToggle'
 import Link from 'next/link'
 
-
-export const Logo = ({ setIsOpen }: { setIsOpen?: (isOpen: boolean) => void }) => (
-  <Link href='/' className='text-4xl font-bold uppercase' onClick={() => setIsOpen?.(false)}>
+export const Logo = ({
+  setIsOpen,
+}: {
+  setIsOpen?: (isOpen: boolean) => void
+}) => (
+  <Link
+    href='/'
+    className='text-4xl font-bold uppercase'
+    onClick={() => setIsOpen?.(false)}
+  >
     Arthur <br /> Paumier
   </Link>
 )

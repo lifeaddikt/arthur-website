@@ -10,7 +10,7 @@ const ScrollRestoration = () => {
     // Handle back/forward cache restoration
     if (document.visibilityState === 'hidden') {
       // Document is hidden, likely part of bfcache
-      return;
+      return
     }
 
     if (!lastPictureSeen) return
@@ -19,13 +19,13 @@ const ScrollRestoration = () => {
       const pictureElement = document.querySelector(
         `[data-picture-id="${lastPictureSeen}"]`
       )
-      
+
       if (pictureElement) {
         // Use less disruptive scrolling behavior
-        pictureElement.scrollIntoView({ 
-          behavior: 'auto', 
-          block: 'center', 
-          inline: 'center' 
+        pictureElement.scrollIntoView({
+          behavior: 'auto',
+          block: 'center',
+          inline: 'center',
         })
       }
     }
@@ -46,7 +46,7 @@ const ScrollRestoration = () => {
     }
 
     window.addEventListener('pageshow', handlePageShow)
-    
+
     return () => {
       window.removeEventListener('pageshow', handlePageShow)
     }

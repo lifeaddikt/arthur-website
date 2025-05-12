@@ -11,7 +11,7 @@ export const revalidate = 3600
 
 const getCollection = cache(async (slug: string) => {
   const payload = await getPayloadClient()
-  
+
   return payload.find({
     collection: 'photographies-collection',
     where: {
@@ -23,7 +23,7 @@ const getCollection = cache(async (slug: string) => {
 
 const getPhotos = cache(async (collection: string, activeSerie?: string) => {
   const payload = await getPayloadClient()
-  
+
   return payload.find({
     collection: 'photography',
     where: {
@@ -47,8 +47,8 @@ const getPhotos = cache(async (collection: string, activeSerie?: string) => {
 
 export async function generateStaticParams() {
   const payload = await getPayloadClient()
-  const collections = await payload.find({ 
-    collection: 'photographies-collection'
+  const collections = await payload.find({
+    collection: 'photographies-collection',
   })
 
   return collections.docs.map((collection) => ({
@@ -65,9 +65,9 @@ const CollectionPage = async ({
 }) => {
   const { collection } = await params
   const { activeSerie } = await searchParams
-  
+
   const collectionData = await getCollection(collection)
-  
+
   if (!collectionData.docs.length) {
     notFound()
   }

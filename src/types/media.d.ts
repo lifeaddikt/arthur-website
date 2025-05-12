@@ -1,5 +1,5 @@
 declare global {
   interface Media {
-    blurDataURL?: string;
+    blurDataURL?: string
   }
-} 
+}

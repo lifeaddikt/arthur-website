@@ -35,13 +35,13 @@ const getPhotoWithNavigation = cache(async (id: string, collection: string) => {
         },
         sort: '-createdAt',
         limit: 1,
-      })
+      }),
     ])
 
     return {
       currentPhoto,
       prevPhoto: prevPhoto.docs[0] || null,
-      nextPhoto: nextPhoto.docs[0] || null
+      nextPhoto: nextPhoto.docs[0] || null,
     }
   } catch (error) {
     console.error(`Error fetching photo with id ${id}:`, error)
@@ -96,11 +96,11 @@ const PicturePage = async ({
 
   return (
     <main className='flex-1 h-[90vh] md:h-[100vh] overflow-hidden flex flex-col justify-center md:justify-between items-center pt-8 px-8 md:pt-16 md:px-16'>
-      <ClientImage 
-        photo={currentPhoto} 
+      <ClientImage
+        photo={currentPhoto}
         collection={collection}
         prevPhoto={prevPhoto}
-        nextPhoto={nextPhoto} 
+        nextPhoto={nextPhoto}
       />
       <PicturePageNav
         prevPhoto={prevPhoto}

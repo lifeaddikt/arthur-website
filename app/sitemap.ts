@@ -2,7 +2,8 @@ import { MetadataRoute } from 'next'
 import { getPayloadClient } from '@/utils/payload'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://arthur-website-rho.vercel.app'
+  const baseUrl =
+    process.env.NEXT_PUBLIC_URL || 'https://arthur-website-rho.vercel.app'
   const payload = await getPayloadClient()
 
   const collections = await payload.find({
@@ -44,4 +45,4 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   return sitemap
-} 
+}

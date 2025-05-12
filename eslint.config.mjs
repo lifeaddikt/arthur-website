@@ -12,9 +12,24 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
+    files: [
+      'app/(front)/**/*.{js,jsx,ts,tsx}',
+      'utils/**/*.{js,jsx,ts,tsx}',
+      'hooks/**/*.{js,jsx,ts,tsx}',
+      'components/**/*.{js,jsx,ts,tsx}',
+      'collections/**/*.{js,jsx,ts,tsx}'
+    ],
     rules: {
       'quotes': ['error', 'single'], 
       'semi': ['error', 'never'],  
+      '@typescript-eslint/no-unused-vars': ['error', { 
+        'argsIgnorePattern': '^_',
+        'varsIgnorePattern': '^_',
+        'caughtErrorsIgnorePattern': '^_'
+      }],
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-expressions': 'error',
+      'no-unused-expressions': 'off',
     },
   },
 ]

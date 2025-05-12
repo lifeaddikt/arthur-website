@@ -45,7 +45,9 @@ const ClientImage = ({
           src={imageUrl}
           alt={imageAlt}
           fill
-          className={`object-contain max-w-fit max-h-fit z-10 animate-fade-in ${collection === 'film' ? 'dark:invert' : ''}`}
+          className={`object-contain max-w-fit max-h-fit z-10 animate-fade-in ${
+            collection === 'film' ? 'dark:invert' : ''
+          }`}
           loading='eager'
           priority
           sizes='(max-width: 768px) 90vw, (max-width: 1200px) 75vw, 70vw'
@@ -71,7 +73,7 @@ const ClientImage = ({
         <div className='absolute inset-0 z-20 flex w-full h-full'>
           {/* Left zone - Previous */}
           {prevPhoto ? (
-            <Link 
+            <Link
               href={`/${collection}/${prevPhoto.id}`}
               className='w-1/3 h-full cursor-prev'
             >
@@ -80,18 +82,18 @@ const ClientImage = ({
           ) : (
             <div className='w-1/3 h-full cursor-not-allowed'></div>
           )}
-          
+
           {/* Middle zone - Grid */}
-          <Link 
+          <Link
             href={`/${collection}?lastPictureSeen=${photo.id}`}
             className='w-1/3 h-full cursor-grid'
           >
             <div className='h-full'></div>
           </Link>
-          
+
           {/* Right zone - Next */}
           {nextPhoto ? (
-            <Link 
+            <Link
               href={`/${collection}/${nextPhoto.id}`}
               className='w-1/3 h-full cursor-next'
             >

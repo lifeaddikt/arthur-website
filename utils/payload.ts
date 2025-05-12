@@ -6,4 +6,4 @@ import { cache } from 'react'
 export const getPayloadClient = cache(async () => {
   const payload = await getPayload({ config })
   return payload
-}) 
+})

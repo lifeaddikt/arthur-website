@@ -23,4 +23,4 @@ const useClickOutside = (
   }, [ref, handler, excludeRef])
 }
 
-export default useClickOutside 
+export default useClickOutside

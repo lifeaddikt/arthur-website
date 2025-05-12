@@ -1,6 +1,5 @@
 import type { CollectionConfig } from 'payload'
 import { getPlaiceholder } from 'plaiceholder'
-import sharp from 'sharp'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -19,7 +18,7 @@ export const Media: CollectionConfig = {
       admin: {
         hidden: true,
       },
-    }
+    },
   ],
   upload: {
     adminThumbnail: 'thumbnail',
@@ -36,7 +35,7 @@ export const Media: CollectionConfig = {
       options: {
         quality: 80,
         effort: 6,
-      }
+      },
     },
     resizeOptions: {
       width: 1500,
@@ -53,5 +52,5 @@ export const Media: CollectionConfig = {
         }
       },
     ],
-  }
+  },
 }

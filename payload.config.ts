@@ -14,6 +14,22 @@ import { Series } from './collections/Series'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+interface S3Config {
+  collections: {
+    media: boolean
+  }
+  bucket: string
+  config: {
+    credentials: {
+      accessKeyId: string
+      secretAccessKey: string
+    }
+    region: string
+  }
+  clientUploads: boolean
+  cdnUrl: string
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -55,6 +71,6 @@ export default buildConfig({
       },
       clientUploads: true,
       cdnUrl: process.env.S3_CDN_URL || '',
-    } as any),
+    } as S3Config),
   ],
 })

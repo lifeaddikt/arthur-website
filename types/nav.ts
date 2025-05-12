@@ -7,4 +7,4 @@ export interface NavbarProps {
 export interface MenuLinksProps {
   collections: PhotographiesCollection[]
   setOpen: (open: boolean) => void
-} 
+}

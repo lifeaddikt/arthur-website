@@ -4,7 +4,7 @@ const Badge = ({
   text,
   active,
   collection,
-  id
+  id,
 }: {
   text: string
   active: boolean
@@ -13,9 +13,13 @@ const Badge = ({
 }) => {
   return (
     <Link
-      href={text === 'All' ? `/${collection}` : `/${collection}?activeSerie=${id}`}
+      href={
+        text === 'All' ? `/${collection}` : `/${collection}?activeSerie=${id}`
+      }
       className={`cursor-pointer border p-2 text-sm transition-all ${
-        active ? 'bg-black text-white dark:bg-white dark:text-black' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+        active
+          ? 'bg-black text-white dark:bg-white dark:text-black'
+          : 'hover:bg-gray-100 dark:hover:bg-gray-700'
       }`}
     >
       {text}

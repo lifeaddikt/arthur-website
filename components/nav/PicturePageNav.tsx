@@ -30,7 +30,10 @@ const PicturePageNav = ({
             <p>Prev</p>
           </li>
         )}
-        <Link href={`/${collection}`} className='flex justify-center items-center gap-3 cursor-pointer hover:opacity-70 transition-opacity'>
+        <Link
+          href={`/${collection}`}
+          className='flex justify-center items-center gap-3 cursor-pointer hover:opacity-70 transition-opacity'
+        >
           <Grid />
           <p>Grid</p>
         </Link>
