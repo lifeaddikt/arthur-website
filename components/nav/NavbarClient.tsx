@@ -53,6 +53,7 @@ const NavbarClient = ({
       {!isOpen && (
         <>
           <button
+            aria-label='Open menu'
             ref={burgerRef}
             onClick={() => setRetractMenuOpen(prev => !prev)}>
             <Burger />
@@ -66,12 +67,12 @@ const NavbarClient = ({
       {isOpen ? (
         <div className='flex justify-between mt-auto w-[90%]'>
           <ThemeToggle />
-          <button onClick={() => setIsOpen(false)}>
+          <button onClick={() => setIsOpen(false)} aria-label='Close menu'>
             <Retract />
           </button>
         </div>
       ) : (
-        <button className='mt-auto' onClick={() => setIsOpen(true)}>
+        <button className='mt-auto' onClick={() => setIsOpen(true)} aria-label='Open menu'>
           <Open />
         </button>
       )}

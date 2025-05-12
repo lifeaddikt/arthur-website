@@ -48,7 +48,8 @@ const NavbarClientMobile = ({
         exit={{ opacity: 0, y: 20 }}
         transition={{ delay: 0.5 }}
         onClick={() => setIsOpen(false)}
-        className='lg:hidden fixed bottom-4 right-6 z-50'>
+        className='lg:hidden fixed bottom-4 right-6 z-50'
+        aria-label='Close menu'>
         <Close />
       </motion.button>
     </motion.div>
@@ -58,6 +59,7 @@ const NavbarClientMobile = ({
     <AnimatePresence mode='wait'>
       {!isOpen ? (
         <motion.button
+          aria-label='Open menu'
           key='burger'
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
