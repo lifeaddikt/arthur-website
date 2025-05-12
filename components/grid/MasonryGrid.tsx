@@ -64,7 +64,7 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
           >
             <Link href={`/${collection}/${id}`} prefetch={false}>
               <Image
-                className='dark:invert'
+                className={collection === 'film' ? 'dark:invert' : ''}
                 draggable={false}
                 priority={index < 9}
                 loading={index < 9 ? 'eager' : 'lazy'}
@@ -81,7 +81,6 @@ const MasonryGrid = memo(({ photos, collection }: MasonryGridProps) => {
                   contain: 'layout',
                 }}
                 blurDataURL={picture.blurDataURL || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDMyMCAxODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNlZWUiLz48L3N2Zz4='}
-                quality={75}
                 fetchPriority={index < 9 ? 'high' : 'auto'}
               />
             </Link>

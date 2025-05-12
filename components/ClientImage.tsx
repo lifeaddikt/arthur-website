@@ -46,7 +46,7 @@ const ClientImage = ({
           src={imageUrl}
           alt={imageAlt}
           fill
-          className='object-contain max-w-fit max-h-fit dark:invert z-10'
+          className='object-contain max-w-fit max-h-fit z-10'
           loading='eager'
           priority
           sizes='(max-width: 768px) 90vw, (max-width: 1200px) 75vw, 70vw'
