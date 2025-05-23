@@ -16,7 +16,7 @@ const Home = async () => {
       const photosCount = await payload.count({
         collection: 'photography',
         where: {
-          'collection.id': { equals: collections.docs[0].id },
+          collection: { equals: collection.id },
         },
       })
       return {
