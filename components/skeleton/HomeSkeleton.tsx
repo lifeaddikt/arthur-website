@@ -1,9 +1,13 @@
 'use client'
 import { motion } from 'framer-motion'
+import { ReactLenis } from 'lenis/react'
 
 const HomeSkeleton = () => {
   return (
-    <div className='container mx-auto px-4 py-12 h-full overflow-y-auto'>
+    <ReactLenis
+      className='flex-1 h-full overflow-y-auto pt-[32px] px-[32px]'
+      options={{ smoothWheel: true, autoRaf: true }}
+    >
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
         {[...Array(6)].map((_, index) => (
           <motion.div
@@ -23,7 +27,7 @@ const HomeSkeleton = () => {
           </motion.div>
         ))}
       </div>
-    </div>
+    </ReactLenis>
   )
 }
 

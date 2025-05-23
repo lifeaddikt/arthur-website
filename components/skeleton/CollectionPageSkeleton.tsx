@@ -1,6 +1,7 @@
 'use client'
 import Masonry from 'react-masonry-css'
 import { motion } from 'framer-motion'
+import { ReactLenis } from 'lenis/react'
 
 const CollectionPageSkeleton = () => {
   const breakpointColumns = {
@@ -10,7 +11,10 @@ const CollectionPageSkeleton = () => {
   }
 
   return (
-    <div className='flex-1 h-full overflow-y-auto px-[32px] pt-[32px]'>
+    <ReactLenis
+      className='flex-1 h-full overflow-y-auto pt-[32px] px-[32px]'
+      options={{ smoothWheel: true, autoRaf: true }}
+    >
       <motion.div
         className='h-12 md:w-[400px] bg-gray-300/50 bg-gradient-to-t from-gray-300/50 to-gray-300/30 mb-[25px] animate-pulse'
         initial={{ opacity: 0 }}
@@ -36,7 +40,7 @@ const CollectionPageSkeleton = () => {
           />
         ))}
       </Masonry>
-    </div>
+    </ReactLenis>
   )
 }
 

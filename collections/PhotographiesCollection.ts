@@ -13,6 +13,12 @@ export const PhotographiesCollection: CollectionConfig = {
       required: true,
     },
     {
+      name: 'order',
+      label: 'Ordre',
+      type: 'number',
+      required: false,
+    },
+    {
       name: 'slug',
       label: 'Slug',
       type: 'text',
@@ -26,8 +32,19 @@ export const PhotographiesCollection: CollectionConfig = {
       label: 'Photos associées',
       type: 'join',
       collection: 'photography',
-      on: 'collections',
+      on: 'collection',
       hasMany: true,
+    },
+    {
+      name: 'availableSeries',
+      label: 'Séries disponibles',
+      type: 'relationship',
+      relationTo: 'serie',
+      hasMany: true,
+      required: false,
+      admin: {
+        description: 'Les séries disponibles pour filtrer cette collection. Peut ne pas être bien mise à jour automatiquement.',
+      },
     },
     {
       name: 'desktopPhoto',
@@ -56,3 +73,5 @@ export const PhotographiesCollection: CollectionConfig = {
     ],
   },
 }
+
+export default PhotographiesCollection

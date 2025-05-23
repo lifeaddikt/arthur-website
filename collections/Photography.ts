@@ -3,7 +3,7 @@ import { CollectionConfig } from 'payload'
 export const Photography: CollectionConfig = {
   slug: 'photography',
   admin: {
-    useAsTitle: 'picture',
+    useAsTitle: 'place',
   },
   fields: [
     {
@@ -27,22 +27,45 @@ export const Photography: CollectionConfig = {
       displayPreview: true,
     },
     {
-      name: 'collections',
-      label: 'Collections associées',
+      name: 'collection',
+      label: 'Collection associée',
       type: 'relationship',
       relationTo: 'photographies-collection',
-      hasMany: true,
       required: true,
+      hasMany: false,
     },
     {
-      name: 'series',
+      name: 'serie',
       label: 'Série (facultatif)',
       type: 'relationship',
-      relationTo: 'series',
-      hasMany: true,
+      relationTo: 'serie',
       required: false,
     },
   ],
+  hooks: {
+    afterChange: [async ({ doc, req: { payload } }) => {
+      if (doc.serie) {
+        const collection = await payload.findByID({
+          collection: 'photographies-collection',
+          id: doc.collection,
+        })
+        
+        const seriesExists = collection.availableSeries?.some(
+          (s) => typeof s === 'object' && s.id === doc.serie
+        ) ?? false
+        
+        if (!seriesExists) {
+          await payload.update({
+            collection: 'photographies-collection',
+            id: doc.collection,
+            data: {
+              availableSeries: [...(collection.availableSeries || []), doc.serie],
+            },
+          })
+        }
+      }
+    }],
+  },
 }
 
 export default Photography

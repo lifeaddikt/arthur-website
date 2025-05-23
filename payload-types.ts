@@ -70,7 +70,7 @@ export interface Config {
     media: Media;
     'photographies-collection': PhotographiesCollection;
     photography: Photography;
-    series: Series;
+    serie: Serie;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,7 +79,7 @@ export interface Config {
     'photographies-collection': {
       photos: 'photography';
     };
-    series: {
+    serie: {
       photos: 'photography';
     };
   };
@@ -88,7 +88,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     'photographies-collection': PhotographiesCollectionSelect<false> | PhotographiesCollectionSelect<true>;
     photography: PhotographySelect<false> | PhotographySelect<true>;
-    series: SeriesSelect<false> | SeriesSelect<true>;
+    serie: SerieSelect<false> | SerieSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -179,11 +179,16 @@ export interface Media {
 export interface PhotographiesCollection {
   id: number;
   name: string;
+  order?: number | null;
   slug: string;
   photos?: {
     docs?: (number | Photography)[] | null;
     hasNextPage?: boolean | null;
   } | null;
+  /**
+   * Les séries disponibles pour filtrer cette collection. Peut ne pas être bien mise à jour automatiquement.
+   */
+  availableSeries?: (number | Serie)[] | null;
   desktopPhoto: number | Media;
   mobilePhoto: number | Media;
   updatedAt: string;
@@ -198,16 +203,16 @@ export interface Photography {
   place: string;
   date: string;
   picture: number | Media;
-  collections: (number | PhotographiesCollection)[];
-  series?: (number | Series)[] | null;
+  collection: number | PhotographiesCollection;
+  serie?: (number | null) | Serie;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "series".
+ * via the `definition` "serie".
  */
-export interface Series {
+export interface Serie {
   id: number;
   name: string;
   photos?: {
@@ -241,8 +246,8 @@ export interface PayloadLockedDocument {
         value: number | Photography;
       } | null)
     | ({
-        relationTo: 'series';
-        value: number | Series;
+        relationTo: 'serie';
+        value: number | Serie;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -340,8 +345,10 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PhotographiesCollectionSelect<T extends boolean = true> {
   name?: T;
+  order?: T;
   slug?: T;
   photos?: T;
+  availableSeries?: T;
   desktopPhoto?: T;
   mobilePhoto?: T;
   updatedAt?: T;
@@ -355,16 +362,16 @@ export interface PhotographySelect<T extends boolean = true> {
   place?: T;
   date?: T;
   picture?: T;
-  collections?: T;
-  series?: T;
+  collection?: T;
+  serie?: T;
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "series_select".
+ * via the `definition` "serie_select".
  */
-export interface SeriesSelect<T extends boolean = true> {
+export interface SerieSelect<T extends boolean = true> {
   name?: T;
   photos?: T;
   updatedAt?: T;

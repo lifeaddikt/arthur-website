@@ -7,6 +7,7 @@ const Navbar = async () => {
   const payload = await getPayload({ config })
   const collections = await payload.find({
     collection: 'photographies-collection',
+    sort: 'order',
   })
 
   const filteredCollections = collections?.docs?.filter(

@@ -1,11 +1,11 @@
 import MasonryGrid from '@/components/grid/MasonryGrid'
 import Badge from '@/components/Badge'
-import { Series } from '@/payload-types'
 import { notFound, redirect } from 'next/navigation'
 import ScrollRestoration from '@/hooks/ScrollRestoration'
 import { ReactLenis } from 'lenis/react'
 import { cache } from 'react'
 import { getPayloadClient } from '@/utils/payload'
+import { Serie } from '@/payload-types'
 
 export const revalidate = 3600
 
@@ -29,12 +29,12 @@ const getPhotos = cache(async (collection: string, activeSerie?: string) => {
     where: {
       and: [
         {
-          'collections.slug': { equals: collection.toLowerCase() },
+          'collection.slug': { equals: collection.toLowerCase() },
         },
         ...(activeSerie
           ? [
               {
-                'series.id': { equals: Number(activeSerie) },
+                'serie.id': { equals: Number(activeSerie) },
               },
             ]
           : []),
@@ -42,6 +42,7 @@ const getPhotos = cache(async (collection: string, activeSerie?: string) => {
     },
     depth: 2,
     pagination: false,
+    sort: 'serie',
   })
 })
 
@@ -72,21 +73,13 @@ const CollectionPage = async ({
     notFound()
   }
 
+  const series = collectionData.docs[0].availableSeries
   const photos = await getPhotos(collection, activeSerie)
 
+  console.log(series)
   if (!photos.docs.length && activeSerie) {
     redirect(`/${collection}`)
   }
-
-  const uniqueSeries = Array.from(
-    new Set(
-      photos.docs
-        .flatMap((photo) => photo.series)
-        .filter(
-          (series): series is Series => series !== null && series !== undefined
-        )
-    )
-  )
 
   return (
     <ReactLenis
@@ -96,20 +89,24 @@ const CollectionPage = async ({
       <ScrollRestoration />
       <main>
         <div className='flex flex-col lg:flex-row gap-10 items-center mb-[25px]'>
-          <h1 className='text-4xl capitalize font-bold'>
+          <h1 className='text-4xl font-bold uppercase'>
             {collectionData?.docs[0]?.name}
           </h1>
           <div className='flex gap-3 flex-wrap'>
             <Badge text='All' active={!activeSerie} collection={collection} />
-            {uniqueSeries.map((serie: Series, index: number) => (
-              <Badge
-                key={index}
-                text={serie.name}
-                active={Number(activeSerie) === serie.id}
-                collection={collection}
-                id={serie.id}
-              />
-            ))}
+            {series?.map((serie: number | Serie, index: number) => {
+              const id = typeof serie === 'object' ? serie.id : serie
+              const name = typeof serie === 'object' ? serie.name : `Série ${index + 1}`
+              return (
+                <Badge
+                  key={index}
+                  text={name}
+                  active={Number(activeSerie) === id}
+                  collection={collection}
+                  id={id}
+                />
+              )
+            })}
           </div>
         </div>
         <div className='border-b border-theme-black' />

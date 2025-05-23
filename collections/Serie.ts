@@ -1,7 +1,7 @@
 import { CollectionConfig } from 'payload'
 
-export const Series: CollectionConfig = {
-  slug: 'series',
+export const Serie: CollectionConfig = {
+  slug: 'serie',
   admin: {
     useAsTitle: 'name',
   },
@@ -17,7 +17,7 @@ export const Series: CollectionConfig = {
       label: 'Photos associées',
       type: 'join',
       collection: 'photography',
-      on: 'series',
+      on: 'serie',
     },
   ],
 }

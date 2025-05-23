@@ -9,7 +9,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { PhotographiesCollection } from './collections/PhotographiesCollection'
 import { Photography } from './collections/Photography'
-import { Series } from './collections/Series'
+import { Serie } from './collections/Serie'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -21,7 +21,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, PhotographiesCollection, Photography, Series],
+  collections: [Users, Media, PhotographiesCollection, Photography, Serie],
   upload: {
     limits: {
       fileSize: 5000000,

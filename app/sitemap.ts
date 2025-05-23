@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const photos = await payload.find({
       collection: 'photography',
-      where: { 'collections.slug': { equals: collection.slug } },
+      where: { 'collection.slug': { equals: collection.slug } },
       pagination: false,
     })
 

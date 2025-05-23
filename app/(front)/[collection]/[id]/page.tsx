@@ -21,7 +21,7 @@ const getPhotoWithNavigation = cache(async (id: string, collection: string) => {
       payload.find({
         collection: 'photography',
         where: {
-          'collections.slug': { equals: collection.toLowerCase() },
+          'collection.slug': { equals: collection.toLowerCase() },
           createdAt: { greater_than: currentPhoto.createdAt },
         },
         sort: 'createdAt',
@@ -30,7 +30,7 @@ const getPhotoWithNavigation = cache(async (id: string, collection: string) => {
       payload.find({
         collection: 'photography',
         where: {
-          'collections.slug': { equals: collection.toLowerCase() },
+          'collection.slug': { equals: collection.toLowerCase() },
           createdAt: { less_than: currentPhoto.createdAt },
         },
         sort: '-createdAt',
@@ -63,7 +63,7 @@ export async function generateStaticParams() {
     const photos = await payload.find({
       collection: 'photography',
       where: {
-        'collections.slug': { equals: collection.slug },
+        'collection.slug': { equals: collection.slug },
       },
       pagination: false,
     })
